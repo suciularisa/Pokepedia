@@ -1,56 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity2">
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#003999">
+        android:background="@null">
     </androidx.appcompat.widget.Toolbar>
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#80c2fe"
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="100dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/type1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mew"
+                android:text="Water"
                 android:textAlignment="center"
-                android:textSize="20dp"
                 />
             <TextView
-                android:id="@+id/tag"
+                android:id="@+id/type2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="#123"
+                android:text="Water"
                 android:textAlignment="center"
-                android:textSize="15dp"
               />
-
-            <Button
-                android:id="@+id/button_catch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CATCH"
-                android:background="@drawable/search_bar"
-                />
-
 
         </LinearLayout>
 
@@ -61,76 +57,25 @@
             />
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <TextView
+        android:id="@+id/pokemon_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
-        android:background="#003999"
-        android:layout_marginTop="10dp">
-
-        <RadioButton
-            android:id="@+id/about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_toolbar_selector"
-            android:textColor="@drawable/text_radio_toolbar"
-            android:padding="10dp"
-            android:checked="true"
-            android:text="About"
-            android:textAlignment="center"/>
-
-        <RadioButton
-            android:id="@+id/stats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_toolbar_selector"
-            android:textColor="@drawable/text_radio_toolbar"
-            android:text="Stats"
-            android:textAlignment="center"/>
-
-        <RadioButton
-            android:id="@+id/evolution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_toolbar_selector"
-            android:textColor="@drawable/text_radio_toolbar"
-            android:padding="10dp"
-            android:text="Evolution"
-            android:textAlignment="center"/>
-
-        <RadioButton
-            android:id="@+id/moves"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_toolbar_selector"
-            android:textColor="@drawable/text_radio_toolbar"
-            android:text="Moves"
-            android:textAlignment="center"/>
-
-    </RadioGroup>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:text="Squirtle"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_name" />
 
-    </TextView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

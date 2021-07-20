@@ -4,33 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ListView;
+import android.view.Window;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
 
     private RadioGroup radioGroup;
-    private Button button;
-
     private PokedexFragment pokedex;
     private PoketeamFragment poketeam;
-
-   // String[] pokemonName = {"Mew","Bayleef","Chikorita"};
-  //  String[] pokemonType = {"Psychic","Grass","Grass"};
-  //  Integer[] id={R.drawable.mew, R.drawable.bayleef, R.drawable.chikorita};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +33,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                switch (checkedId){
+                RadioButton rb = findViewById(checkedId);
+
+                switch (rb.getId()){
                     case R.id.pokedex: Log.v(TAG, "Selected POKEDEX");
                                         setFragment(pokedex);
+                                         rb.setTypeface(null, Typeface.BOLD);
                                         break;
                     case R.id.poketeam: Log.v(TAG, "Selected POKETEAM");
+                                        rb.setTypeface(null, Typeface.BOLD);
                                         setFragment(poketeam);
                                         break;
                 }
             }
         });
 
+
+        //change the status bar color
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getResources().getColor(R.color.base_blue));
 
     }
     @Override

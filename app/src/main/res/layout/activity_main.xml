@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#003999"
+        android:background="#092854"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
@@ -33,45 +33,40 @@
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio_toolbar_selector"
                     android:textColor="@drawable/text_radio_toolbar"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:checked="true"
                     android:text="Pokedex"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                   />
 
                 <RadioButton
                     android:id="@+id/poketeam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:layout_weight="1"
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio_toolbar_selector"
                     android:textColor="@drawable/text_radio_toolbar"
                     android:text="PokeTeam"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                   />
 
             </RadioGroup>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/seach_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/search_bar"
-        app:queryHint= "Search Pokemon"
-        app:iconifiedByDefault="false"
-        />
-
-
-
 <FrameLayout
     android:id="@+id/main_frame"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar"
     android:layout_marginTop="10dp"
-    app:layout_constraintTop_toBottomOf="@id/seach_view"/>
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

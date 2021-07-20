@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
+
 
 public class Activity2 extends AppCompatActivity {
     private RadioGroup radioGroup;
@@ -25,6 +27,7 @@ public class Activity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(null);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
