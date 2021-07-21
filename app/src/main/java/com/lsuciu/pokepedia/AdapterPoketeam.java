@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -43,8 +44,8 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myContext, pokemon.getName(), Toast.LENGTH_SHORT).show();
-                openSecondActivity();
+                Intent i = new Intent(myContext, Activity2.class);
+                myContext.startActivity(i);
             }
         });
     }
@@ -54,11 +55,6 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
         return pokemons.length;
     }
 
-
-    private void openSecondActivity(){
-        Intent i = new Intent(myContext, Activity2.class);
-        myContext.startActivity(i);
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -93,8 +89,9 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
                 pokemon_type_2.setBackgroundResource(R.drawable.transparent_placeholder);
             }
             pokemon_id.setText(pokemon.getId());
+
             colorId = pokemon.getTypes().get(0).getColorId();
-            color = cardView.getContext().getResources().getColor(colorId);
+            color = ContextCompat.getColor(cardView.getContext(), colorId);
             cardView.setCardBackgroundColor(color);
         }
     }

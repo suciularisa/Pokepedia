@@ -16,16 +16,20 @@ import java.util.Arrays;
 
 public class PoketeamFragment extends Fragment{
 
+    public static final String title = "PokeTeam";
+
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     AdapterPoketeam adapter;
 
 
-    ArrayList<Type> t1 = new ArrayList<Type>(Arrays.asList(Type.GRASS,Type.POISON));
-    ArrayList<Type> t2 = new ArrayList<Type>(Arrays.asList(Type.FIRE));
-    ArrayList<Type> t3 = new ArrayList<Type>(Arrays.asList(Type.FIRE,Type.FLYING));
-    ArrayList<Type> t4 = new ArrayList<Type>(Arrays.asList(Type.WATER));
-    ArrayList<Type> t5 = new ArrayList<Type>(Arrays.asList(Type.BUG));
+    public PoketeamFragment(){ }
+
+    ArrayList<Type> t1 = new ArrayList<>(Arrays.asList(Type.GRASS,Type.POISON));
+    ArrayList<Type> t2 = new ArrayList<>(Arrays.asList(Type.FIRE));
+    ArrayList<Type> t3 = new ArrayList<>(Arrays.asList(Type.FIRE,Type.FLYING));
+    ArrayList<Type> t4 = new ArrayList<>(Arrays.asList(Type.WATER));
+    ArrayList<Type> t5 = new ArrayList<>(Arrays.asList(Type.BUG));
 
     private Pokemon p1 = new Pokemon("Bulbasaur","#1", t1);
     private Pokemon p2 = new Pokemon("Ivysaur","#2", t1);

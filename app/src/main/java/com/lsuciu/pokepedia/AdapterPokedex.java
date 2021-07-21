@@ -14,16 +14,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHolder>{
 
-    Pokemon[] pokemons;
+    ArrayList<Pokemon> pokemons;
     private Context myContext;
 
-    public AdapterPokedex(Context context, Pokemon[] pokemons) {
+    public AdapterPokedex(Context context, ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
         myContext = context;
     }
@@ -37,27 +40,24 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPokedex.ViewHolder holder, int position) {
-        Pokemon pokemon = pokemons[position];
+        Pokemon pokemon = pokemons.get(position);
         holder.bind(pokemon);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myContext, pokemon.getName(), Toast.LENGTH_SHORT).show();
-                openSecondActivity();
+                //open second activity
+                Intent i = new Intent(myContext, Activity2.class);
+                myContext.startActivity(i);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return pokemons.length;
+        return pokemons.size();
     }
 
-    private void openSecondActivity(){
-        Intent i = new Intent(myContext, Activity2.class);
-        myContext.startActivity(i);
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -94,10 +94,11 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
             pokemon_id.setText(pokemon.getId());
 
             colorId = pokemon.getTypes().get(0).getColorId();
-            color = cardView.getContext().getResources().getColor(colorId);
+            color = ContextCompat.getColor(cardView.getContext(), colorId);
             cardView.setCardBackgroundColor(color);
         }
     }
+
 
 }
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,8 @@ import java.util.Arrays;
 
 
 public class PokedexFragment extends Fragment {
-    private Button button;
+
+    public static final String title = "Pokedex";
 
 
     ArrayList<Type> t1 = new ArrayList<Type>(Arrays.asList(Type.GRASS,Type.POISON));
@@ -54,14 +56,19 @@ public class PokedexFragment extends Fragment {
     private Pokemon p22 = new Pokemon("Beedrill8","#20", t5);
 
 
+    public PokedexFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_pokedex, container, false);
 
-
-        Pokemon[] pokemons = {p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16, p17, p18, p19, p20, p21, p22};
+        Log.v("POKE","HERE");
+        ArrayList<Pokemon> pokemons = new ArrayList<>(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16, p17, p18, p19, p20, p21, p22));
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewPokedex);
 
@@ -71,32 +78,8 @@ public class PokedexFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-     /*   button = view.findViewById(R.id.button);
-        button.setText("Mew");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSecondActivity();
-            }
-        });*/
-
-
-
-
-        //GLIDE TEST
-        /*ImageView image = view.findViewById(R.id.testGlide);
-
-        Glide.with(this)
-                .load("https://i.waifu.pics/V_kQGSb.jpg")
-                .into(image);*/
-
-
         return view;
     }
 
-    private void openSecondActivity(){
-        Intent i = new Intent(getActivity(), Activity2.class);
-        startActivity(i);
-    }
 
 }

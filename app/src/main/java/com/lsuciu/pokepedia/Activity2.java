@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.RadioGroup;
 
-import java.util.ArrayList;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class Activity2 extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class Activity2 extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        radioGroup = findViewById(R.id.radioGroup);
+       /* radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -46,8 +46,21 @@ public class Activity2 extends AppCompatActivity {
                                         break;
                 }
             }
-        });
+        });*/
 
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+
+        ViewPagerAdapterActivity2 adapter = new ViewPagerAdapterActivity2(this);
+        viewPager2.setAdapter(adapter);
+
+        new TabLayoutMediator(tabLayout, viewPager2,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText(adapter.getFragmentTitle(position));
+                    }
+                }).attach();
     }
 
 }

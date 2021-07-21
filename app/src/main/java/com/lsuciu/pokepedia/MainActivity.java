@@ -1,8 +1,11 @@
 package com.lsuciu.pokepedia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +13,12 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        pokedex = new PokedexFragment();
+       /* pokedex = new PokedexFragment();
         poketeam = new PoketeamFragment();
         setFragment(pokedex);
         radioGroup = findViewById(R.id.radioGroup);
@@ -46,12 +55,26 @@ public class MainActivity extends AppCompatActivity {
                                         break;
                 }
             }
-        });
+        });*/
+
+        TabLayout tabs = findViewById(R.id.tabs);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+
+        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new PokedexFragment(), new PoketeamFragment()));
+        ViewPagerAdapterMainActivity adapter = new ViewPagerAdapterMainActivity(this, fragments);
+        viewPager.setAdapter(adapter);
+        new TabLayoutMediator(tabs, viewPager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText(adapter.getFragmentTitle(position));
+                    }
+                }).attach();
 
 
         //change the status bar color
         Window window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.base_blue));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.base_blue));
 
     }
     @Override
@@ -92,12 +115,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.v(TAG,"onDestroy");
     }
-
-    private void setFragment(Fragment f){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_frame, f);
-        ft.commit();
-    }
-
 
 }
