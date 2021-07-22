@@ -12,6 +12,17 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/radio_toolbar"
+        app:tabIndicatorGravity="stretch"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/base_blue"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/white"
+        android:paddingVertical="15sp"
+        app:tabIndicator="@drawable/radio_toolbar_selected"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         />
 
     <androidx.viewpager2.widget.ViewPager2

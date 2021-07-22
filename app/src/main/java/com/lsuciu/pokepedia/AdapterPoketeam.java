@@ -2,14 +2,11 @@ package com.lsuciu.pokepedia;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,14 +14,17 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.lsuciu.pokepedia.data.Pokemon;
+
+import java.util.ArrayList;
 
 
 public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHolder>{
 
-    Pokemon[] pokemons;
+    ArrayList<Pokemon> pokemons;
     private Context myContext;
 
-    public AdapterPoketeam(Context context, Pokemon[] pokemons) {
+    public AdapterPoketeam(Context context, ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
         myContext = context;
     }
@@ -38,7 +38,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPoketeam.ViewHolder holder, int position) {
-        Pokemon pokemon = pokemons[position];
+        Pokemon pokemon = pokemons.get(position);
         holder.bind(pokemon);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +52,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
 
     @Override
     public int getItemCount() {
-        return pokemons.length;
+        return pokemons.size();
     }
 
 

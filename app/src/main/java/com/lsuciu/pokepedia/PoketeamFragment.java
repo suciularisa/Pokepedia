@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -55,7 +58,13 @@ public class PoketeamFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_poketeam, container, false);
 
 
-        Pokemon[] pokemons = {p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15};
+
+        PokemonDatabase pokemonDB = PokemonDatabase.getInstance(this.getContext());
+        pokemonDB.pokemonDao().insertPokemon(p3);
+        pokemonDB.pokemonDao().insertPokemon(p14);
+        pokemonDB.pokemonDao().insertPokemon(p15);
+
+        ArrayList<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDB.pokemonDao().getPokemons();
 
         // For the Recycler View
         recyclerView = view.findViewById(R.id.recyclerViewPoketeam);

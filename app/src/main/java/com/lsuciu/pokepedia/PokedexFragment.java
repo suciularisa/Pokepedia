@@ -1,21 +1,16 @@
 package com.lsuciu.pokepedia;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.lsuciu.pokepedia.data.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +62,6 @@ public class PokedexFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_pokedex, container, false);
 
-        Log.v("POKE","HERE");
         ArrayList<Pokemon> pokemons = new ArrayList<>(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16, p17, p18, p19, p20, p21, p22));
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewPokedex);

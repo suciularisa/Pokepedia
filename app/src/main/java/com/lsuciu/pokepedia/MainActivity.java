@@ -10,9 +10,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -60,9 +64,12 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
 
+
+
         ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new PokedexFragment(), new PoketeamFragment()));
         ViewPagerAdapterMainActivity adapter = new ViewPagerAdapterMainActivity(this, fragments);
         viewPager.setAdapter(adapter);
+
         new TabLayoutMediator(tabs, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
@@ -71,6 +78,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).attach();
 
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                LinearLayout tabLayout = (LinearLayout)((ViewGroup) tabs.getChildAt(0)).getChildAt(tab.getPosition());
+                TextView tabTextView = (TextView) tabLayout.getChildAt(1);
+                tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                LinearLayout tabLayout = (LinearLayout)((ViewGroup) tabs.getChildAt(0)).getChildAt(tab.getPosition());
+                TextView tabTextView = (TextView) tabLayout.getChildAt(1);
+                tabTextView.setTypeface(Typeface.DEFAULT);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         //change the status bar color
         Window window = this.getWindow();
@@ -88,8 +115,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
-        Log.v(TAG,"onResume");
+        TabLayout tabs = findViewById(R.id.tabs);
+        LinearLayout tabLayout = (LinearLayout)((ViewGroup) tabs.getChildAt(0)).getChildAt(0);
+        TextView tabTextView = (TextView) tabLayout.getChildAt(1);
+        tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
     }
 
     @Override

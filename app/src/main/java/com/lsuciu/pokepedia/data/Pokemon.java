@@ -1,20 +1,37 @@
-package com.lsuciu.pokepedia;
+package com.lsuciu.pokepedia.data;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.lsuciu.pokepedia.Type;
 
 import java.util.List;
 
+@Entity(tableName = "Pokemon")
+@TypeConverters({Converter.class})
 public class Pokemon {
 
-    private String name;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "Id")
     private String id;
+    @ColumnInfo(name = "Name")
+    private String name;
+    @ColumnInfo(name = "Types")
     private List<Type> types;
-    private double height;
-    private double weight;
+
+    //private double height;
+   // private double weight;
 
     //from the pokemon's JSON, go to the link from species section for these 3
-    private int baseHappiness;
+   /* private int baseHappiness;
     private int captureRate;
 
-    private String description;
+    private String description;*/
 
 
     public Pokemon(String name, String id, List<Type> types) {
@@ -48,7 +65,7 @@ public class Pokemon {
         this.types = types;
     }
 
-    public double getHeight() {
+   /* public double getHeight() {
         return height;
     }
 
@@ -86,5 +103,5 @@ public class Pokemon {
 
     public void setDescription(String description) {
         this.description = description;
-    }
+    }*/
 }

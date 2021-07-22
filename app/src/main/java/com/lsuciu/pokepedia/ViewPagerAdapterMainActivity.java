@@ -28,7 +28,7 @@ public class ViewPagerAdapterMainActivity extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
 
         return fragments.get(position);
-       /* Log.v("POS",position + " ");
+       /*
         switch (position){
             case 0 : return new PokedexFragment();
             default: return new PoketeamFragment();
