@@ -44,8 +44,9 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(myContext, Activity2.class);
-                myContext.startActivity(i);
+                Intent intent = new Intent(myContext, Activity2.class);
+                intent.putExtra("selected_pokemon", pokemon);
+                myContext.startActivity(intent);
             }
         });
     }
@@ -88,7 +89,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
                 pokemon_type_2.setText(pokemon.getTypes().get(1).getName());
                 pokemon_type_2.setBackgroundResource(R.drawable.transparent_placeholder);
             }
-            pokemon_id.setText(pokemon.getId());
+            pokemon_id.setText(Integer.toString(pokemon.getId()));
 
             colorId = pokemon.getTypes().get(0).getColorId();
             color = ContextCompat.getColor(cardView.getContext(), colorId);

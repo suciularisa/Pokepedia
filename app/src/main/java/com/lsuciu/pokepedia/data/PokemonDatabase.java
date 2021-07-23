@@ -2,13 +2,15 @@ package com.lsuciu.pokepedia.data;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = Pokemon.class, exportSchema = false, version = 1)
-@TypeConverters({Converter.class})
+@Database(entities = Pokemon.class, version = 1)
+
+@TypeConverters(Converter.class)
 public abstract class PokemonDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "pokemon_db";
@@ -19,7 +21,6 @@ public abstract class PokemonDatabase extends RoomDatabase {
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(), PokemonDatabase.class, DB_NAME)
                         .allowMainThreadQueries()
-                        .addTypeConverter(Converter.class)
                         .build();
         }
         return instance;

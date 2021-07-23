@@ -9,16 +9,17 @@ import androidx.room.TypeConverters;
 
 import com.lsuciu.pokepedia.Type;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(tableName = "Pokemon")
 @TypeConverters({Converter.class})
-public class Pokemon {
+public class Pokemon implements Serializable {
 
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "Id")
-    private String id;
+    private int id;
     @ColumnInfo(name = "Name")
     private String name;
     @ColumnInfo(name = "Types")
@@ -34,7 +35,7 @@ public class Pokemon {
     private String description;*/
 
 
-    public Pokemon(String name, String id, List<Type> types) {
+    public Pokemon(String name, int id, List<Type> types) {
         this.name = name;
         this.id = id;
         this.types = types;
@@ -49,11 +50,11 @@ public class Pokemon {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

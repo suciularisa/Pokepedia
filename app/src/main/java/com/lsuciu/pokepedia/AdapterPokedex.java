@@ -88,7 +88,7 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
                 pokemon_type_2.setText(pokemon.getTypes().get(1).getName());
                 pokemon_type_2.setBackgroundResource(R.drawable.transparent_placeholder);
             }
-            pokemon_id.setText(pokemon.getId());
+            pokemon_id.setText(Integer.toString(pokemon.getId()));
 
             colorId = pokemon.getTypes().get(0).getColorId();
             color = ContextCompat.getColor(cardView.getContext(), colorId);

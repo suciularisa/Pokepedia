@@ -23,4 +23,5 @@ public interface PokemonDao {
 
     @Query("Select * from Pokemon")
     List<Pokemon> getPokemons();
+
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDao;
 import com.lsuciu.pokepedia.data.PokemonDatabase;
 
 import java.util.ArrayList;
@@ -34,21 +35,21 @@ public class PoketeamFragment extends Fragment{
     ArrayList<Type> t4 = new ArrayList<>(Arrays.asList(Type.WATER));
     ArrayList<Type> t5 = new ArrayList<>(Arrays.asList(Type.BUG));
 
-    private Pokemon p1 = new Pokemon("Bulbasaur","#1", t1);
-    private Pokemon p2 = new Pokemon("Ivysaur","#2", t1);
-    private Pokemon p3 = new Pokemon("Venusaur","#3", t1);
-    private Pokemon p4 = new Pokemon("Charmander","#4", t2);
-    private Pokemon p5 = new Pokemon("Charmeleon","#5", t2);
-    private Pokemon p6 = new Pokemon("Charizard","#6", t3);
-    private Pokemon p7 = new Pokemon("Squirtle","#7", t4);
-    private Pokemon p8 = new Pokemon("Wartortle","#8", t4);
-    private Pokemon p9 = new Pokemon("Blastoise","#9", t4);
-    private Pokemon p10 = new Pokemon("Caterpie","#10", t5);
-    private Pokemon p11 = new Pokemon("Metapod","#11", t5);
-    private Pokemon p12 = new Pokemon("Butterfree","#12", t5);
-    private Pokemon p13 = new Pokemon("Weedle","#13", t5);
-    private Pokemon p14 = new Pokemon("Kakuna","#14", t5);
-    private Pokemon p15 = new Pokemon("Beedrill","#15", t5);
+    private Pokemon p1 = new Pokemon("Bulbasaur",1, t1);
+    private Pokemon p2 = new Pokemon("Ivysaur",2, t1);
+    private Pokemon p3 = new Pokemon("Venusaur",3, t1);
+    private Pokemon p4 = new Pokemon("Charmander",4, t2);
+    private Pokemon p5 = new Pokemon("Charmeleon",5, t2);
+    private Pokemon p6 = new Pokemon("Charizard",6, t3);
+    private Pokemon p7 = new Pokemon("Squirtle",7, t4);
+    private Pokemon p8 = new Pokemon("Wartortle",8, t4);
+    private Pokemon p9 = new Pokemon("Blastoise",9, t4);
+    private Pokemon p10 = new Pokemon("Caterpie",10, t5);
+    private Pokemon p11 = new Pokemon("Metapod",11, t5);
+    private Pokemon p12 = new Pokemon("Butterfree",12, t5);
+    private Pokemon p13 = new Pokemon("Weedle",13, t5);
+    private Pokemon p14 = new Pokemon("Kakuna",14, t5);
+    private Pokemon p15 = new Pokemon("Beedrill",15, t5);
 
 
     @Override
@@ -60,11 +61,7 @@ public class PoketeamFragment extends Fragment{
 
 
         PokemonDatabase pokemonDB = PokemonDatabase.getInstance(this.getContext());
-        pokemonDB.pokemonDao().insertPokemon(p3);
-        pokemonDB.pokemonDao().insertPokemon(p14);
-        pokemonDB.pokemonDao().insertPokemon(p15);
-
-        ArrayList<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDB.pokemonDao().getPokemons();
+         ArrayList<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDB.pokemonDao().getPokemons();
 
         // For the Recycler View
         recyclerView = view.findViewById(R.id.recyclerViewPoketeam);

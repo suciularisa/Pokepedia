@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         //change the status bar color
         Window window = this.getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.base_blue));
+
 
     }
     @Override
