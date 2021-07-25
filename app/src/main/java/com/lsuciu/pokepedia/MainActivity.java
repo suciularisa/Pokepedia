@@ -39,33 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-       /* pokedex = new PokedexFragment();
-        poketeam = new PoketeamFragment();
-        setFragment(pokedex);
-        radioGroup = findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                RadioButton rb = findViewById(checkedId);
-
-                switch (rb.getId()){
-                    case R.id.pokedex: Log.v(TAG, "Selected POKEDEX");
-                                        setFragment(pokedex);
-                                         rb.setTypeface(null, Typeface.BOLD);
-                                        break;
-                    case R.id.poketeam: Log.v(TAG, "Selected POKETEAM");
-                                        rb.setTypeface(null, Typeface.BOLD);
-                                        setFragment(poketeam);
-                                        break;
-                }
-            }
-        });*/
-
         TabLayout tabs = findViewById(R.id.tabs);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
-
-
 
         ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new PokedexFragment(), new PoketeamFragment()));
         ViewPagerAdapterMainActivity adapter = new ViewPagerAdapterMainActivity(this, fragments);
@@ -95,15 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
         //change the status bar color
         Window window = this.getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.base_blue));
-
 
     }
     @Override
@@ -121,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout tabLayout = (LinearLayout)((ViewGroup) tabs.getChildAt(0)).getChildAt(0);
         TextView tabTextView = (TextView) tabLayout.getChildAt(1);
         tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
+
+        tabs.setBackgroundResource(R.color.base_blue);
     }
 
     @Override

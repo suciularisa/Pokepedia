@@ -5,14 +5,17 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ public class Activity2 extends AppCompatActivity {
     private Toolbar toolbar;
     private final String TAG = "Activity2";
     private Intent intent;
+    private int colorId, color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +38,12 @@ public class Activity2 extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setTitle(null);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.back_arrow);
+
 
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -70,6 +74,15 @@ public class Activity2 extends AppCompatActivity {
         }
         name.setText(pokemon.getName());
 
+        LinearLayout layout = findViewById(R.id.top_layout);
+        colorId = pokemon.getTypes().get(0).getColorId();
+        color = ContextCompat.getColor(layout.getContext(), colorId);
+        layout.getBackground().setTint(color);
+
+
+        //change the status bar color
+        Window window = this.getWindow();
+        window.setStatusBarColor(color);
 
     }
 
