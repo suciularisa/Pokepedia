@@ -21,17 +21,33 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.lsuciu.pokepedia.data.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
+    private final String TAG2 = "RETROFIT";
+
 
     private RadioGroup radioGroup;
     private PokedexFragment pokedex;
     private PoketeamFragment poketeam;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +92,76 @@ public class MainActivity extends AppCompatActivity {
         //change the status bar color
         Window window = this.getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.base_blue));
+
+
+
+
+
+
+
+       /* ApiService apiService = retrofit.create(ApiService.class);
+        Call<PokemonJson> call = apiService.getPokemon(1);
+        call.enqueue(new Callback<PokemonJson>() {
+            @Override
+            public void onResponse(Call<PokemonJson> call, Response<PokemonJson> response) {
+                if(!response.isSuccessful()) {
+                    Log.v(TAG2, "Code: " + response.code());
+                    return;
+                }
+                PokemonJson pokemon = response.body();
+                Log.v(TAG2, pokemon.toString());
+                Log.v(TAG2, "Artwork url: " + pokemon.getSprite().getSpriteDetails().getArtwork().getArtworkUrl());
+
+
+                apiService.getSpeciesDetails(pokemon.getId()).enqueue(new Callback<SpeciesDetails>() {
+                    @Override
+                    public void onResponse(Call<SpeciesDetails> call, Response<SpeciesDetails> response) {
+                        SpeciesDetails speciesDetails = response.body();
+                        String evolutionUrl = speciesDetails.getEvolutionChain().getEvolutionChainUrl();
+                        Log.v(TAG2, evolutionUrl);
+
+                        Retrofit retrofit2 = new Retrofit.Builder()
+                                .baseUrl(evolutionUrl)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                                .build();
+
+                        ApiService apiService2 = retrofit2.create(ApiService.class);
+                        Call<EvolutionJson> evolutionChainCall = apiService2.getEvolutionChain();
+
+                        evolutionChainCall.enqueue(new Callback<EvolutionJson>() {
+                            @Override
+                            public void onResponse(Call<EvolutionJson> call, Response<EvolutionJson> response) {
+                                if(!response.isSuccessful()){
+                                    Log.v(TAG2, "EVOLUTIONS: RESPONDSE NOT SUCCESSFUL");
+                                    return;
+                                }
+                                EvolutionJson evolutionJson = response.body();
+                                Log.v(TAG2, "EVOLUTIONS: " + evolutionJson.getChain().getChain2().get(0).getChain2().get(0).getSpecies().getName());
+                            }
+
+                            @Override
+                            public void onFailure(Call<EvolutionJson> call, Throwable t) {
+                                Log.v(TAG2, "EVOLUTIONS FAILED");
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<SpeciesDetails> call, Throwable t) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<PokemonJson> call, Throwable t) {
+                    Log.v("RETROFIT","ERROR : " + t.getMessage());
+            }
+        });*/
 
     }
     @Override

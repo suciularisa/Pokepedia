@@ -37,7 +37,7 @@
                 android:layout_weight="10"
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackColor="@color/white"
+                android:background="@drawable/progress_bar"
                 />
             <TextView
                 android:id="@+id/tag_hp"
@@ -52,6 +52,7 @@
 
 
         <View
+            android:id="@+id/line1"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>
@@ -74,10 +75,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                app:trackThickness="15dp"
-                app:trackCornerRadius="10dp"
+                android:indeterminate="false"
                 app:trackColor="@color/white"
-                />
+                app:trackCornerRadius="10dp"
+                app:trackThickness="15dp" />
             <TextView
                 android:id="@+id/tag_attack"
                 android:layout_width="wrap_content"
@@ -90,6 +91,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/line2"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>
@@ -128,6 +130,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/line3"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>
@@ -167,6 +170,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/line4"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>
@@ -204,6 +208,7 @@
                 />
         </LinearLayout>
         <View
+            android:id="@+id/line5"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>
@@ -241,6 +246,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/line6"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="@color/purple_200"/>

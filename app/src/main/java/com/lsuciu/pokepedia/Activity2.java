@@ -6,12 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,12 +29,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.lsuciu.pokepedia.data.Pokemon;
 
 
-public class Activity2 extends AppCompatActivity {
+public class Activity2 extends AppCompatActivity{
     private RadioGroup radioGroup;
     private Toolbar toolbar;
     private final String TAG = "Activity2";
     private Intent intent;
-    private int colorId, color;
+    private int colorId, color, lighterColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +84,31 @@ public class Activity2 extends AppCompatActivity {
         color = ContextCompat.getColor(layout.getContext(), colorId);
         layout.getBackground().setTint(color);
 
+        //lighten the color
+        lighterColor = ColorUtils.blendARGB(color, Color.WHITE, 0.5f);
+
 
         //change the status bar color
         Window window = this.getWindow();
         window.setStatusBarColor(color);
 
+
+        //change viewpager color
+        tabLayout.setSelectedTabIndicatorColor(color);
+        tabLayout.setTabTextColors(color, ContextCompat.getColor(tabLayout.getContext(), R.color.white));
+
+        //send color to viewpager fragments
+        SharedPreferences preferences;
+        String MY_SHARED_PREFERENCES = "MySharedPrefs" ;
+        preferences = getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("currentColor", color);
+        editor.putInt("lighterColor", lighterColor);
+        editor.commit();
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,4 +116,9 @@ public class Activity2 extends AppCompatActivity {
         inflater.inflate(R.menu.menu_toolbar, menu);
         return true;
     }
+
+/*    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }*/
 }
