@@ -17,14 +17,15 @@ import com.bumptech.glide.Glide;
 import com.lsuciu.pokepedia.data.Pokemon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHolder>{
 
-    ArrayList<Pokemon> pokemons;
+    List<PokemonData> pokemons;
     private Context myContext;
 
-    public AdapterPoketeam(Context context, ArrayList<Pokemon> pokemons) {
+    public AdapterPoketeam(Context context, List<PokemonData> pokemons) {
         this.pokemons = pokemons;
         myContext = context;
     }
@@ -38,7 +39,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPoketeam.ViewHolder holder, int position) {
-        Pokemon pokemon = pokemons.get(position);
+        PokemonData pokemon = pokemons.get(position);
         holder.bind(pokemon);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +80,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
             cardView = itemView.findViewById(R.id.card_poketeam);
         }
 
-        private void bind(Pokemon pokemon) {
+        private void bind(PokemonData pokemon) {
             Glide.with(myContext)
                     .load("https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg?resize=750px:*")
                     .into(image_pokemon);

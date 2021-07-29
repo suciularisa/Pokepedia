@@ -13,7 +13,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="SQUIRTLE’s shell is not merely used\nfor protection.\nThe shell’s rounded shape and the\u000cgrooves on its surface help minimize\nresistance in water, enabling this\nPOKéMON to swim at high speeds."
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
 
     <LinearLayout
@@ -29,13 +30,13 @@
             android:id="@+id/line1"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
         <TextView
             android:id="@+id/id_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ID"
-            android:textColor="@color/black"
+            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
             />
         <TextView
@@ -52,13 +53,13 @@
             android:id="@+id/line2"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
         <TextView
             android:id="@+id/height_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Height"
-            android:textColor="@color/black"
+            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
 
             />
@@ -76,13 +77,13 @@
             android:id="@+id/line3"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
         <TextView
             android:id="@+id/weight_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Weight"
-            android:textColor="@color/black"
+            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
 
             />
@@ -100,13 +101,13 @@
             android:id="@+id/line4"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
         <TextView
             android:id="@+id/hapiness_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Base Happiness"
-            android:textColor="@color/black"
+            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
 
             />
@@ -124,14 +125,13 @@
             android:id="@+id/line5"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
         <TextView
             android:id="@+id/capture_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Capture Rate"
-            android:textColor="@color/black"
-
+            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
 
             />

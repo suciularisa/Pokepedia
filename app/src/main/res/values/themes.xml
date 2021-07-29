@@ -12,5 +12,115 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#092854</item>
         <!-- Customize your theme here. -->
+
     </style>
+
+    <style name="NormalTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/normal</item>
+        <item name="secondColor">@color/normalLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/normal</item>
+    </style>
+
+    <style name="BugTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/bug</item>
+        <item name="secondColor">@color/bugLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/bug</item>
+    </style>
+
+    <style name="FightingTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/fighting</item>
+        <item name="secondColor">@color/fightingLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/fighting</item>
+    </style>
+
+    <style name="GhostTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/ghost</item>
+        <item name="secondColor">@color/ghostLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ghost</item>
+    </style>
+
+    <style name="ElectricTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/electric</item>
+        <item name="secondColor">@color/electricLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/electric</item>
+    </style>
+
+    <style name="FlyingTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/flying</item>
+        <item name="secondColor">@color/flyingLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/flying</item>
+    </style>
+
+    <style name="SteelTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/steel</item>
+        <item name="secondColor">@color/steelLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/steel</item>
+    </style>
+
+    <style name="PsychicTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/psychic</item>
+        <item name="secondColor">@color/psychicLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/psychic</item>
+    </style>
+
+    <style name="PoisonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/poison</item>
+        <item name="secondColor">@color/poisonLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/poison</item>
+    </style>
+
+    <style name="FireTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/fire</item>
+        <item name="secondColor">@color/fireLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/fire</item>
+    </style>
+
+    <style name="IceTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/ice</item>
+        <item name="secondColor">@color/iceLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ice</item>
+    </style>
+
+    <style name="GroundTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/ground</item>
+        <item name="secondColor">@color/groundLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ground</item>
+    </style>
+
+    <style name="WaterTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/water</item>
+        <item name="secondColor">@color/waterLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/water</item>
+    </style>
+
+    <style name="DragonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/dragon</item>
+        <item name="secondColor">@color/dragonLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/dragon</item>
+    </style>
+
+    <style name="RockTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/rock</item>
+        <item name="secondColor">@color/rockLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/rock</item>
+    </style>
+
+    <style name="GrassTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/grass</item>
+        <item name="secondColor">@color/grassLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/grass</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/dark</item>
+        <item name="secondColor">@color/darkLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/dark</item>
+    </style>
+
+    <style name="FairyTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="typeColor">@color/fairy</item>
+        <item name="secondColor">@color/fairyLighter</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/fairy</item>
+    </style>
+
 </resources>

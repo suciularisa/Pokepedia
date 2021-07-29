@@ -1,8 +1,12 @@
 package com.lsuciu.pokepedia;
 
+import com.google.gson.annotations.SerializedName;
+import com.lsuciu.pokepedia.data.Pokemon;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class PokemonData {
+public class PokemonData implements Serializable {
     private int id;
     private String name;
     private List<Type> types;
@@ -20,7 +24,10 @@ public class PokemonData {
     }
 
     public String getName() {
-        return name;
+        String result = (String) name.subSequence(0,1);
+        result = result.toUpperCase();
+        result = result.concat(name.substring(1));
+        return result;
     }
 
     public void setName(String name) {

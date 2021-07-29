@@ -175,12 +175,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        TabLayout tabs = findViewById(R.id.tabs);
-        LinearLayout tabLayout = (LinearLayout)((ViewGroup) tabs.getChildAt(0)).getChildAt(0);
-        TextView tabTextView = (TextView) tabLayout.getChildAt(1);
-        tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
-
-        tabs.setBackgroundResource(R.color.base_blue);
     }
 
     @Override

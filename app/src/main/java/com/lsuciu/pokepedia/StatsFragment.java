@@ -1,44 +1,49 @@
 package com.lsuciu.pokepedia;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import org.w3c.dom.Text;
 
-
-public class StatsFragment extends Fragment {
+public class StatsFragment extends Fragment{
 
     public static final String title = "STATS";
-    private static final String MY_SHARED_PREFERENCES = "MySharedPrefs" ;
-    private int color, lighterColor;
+    PokemonDetails pokemon;
+    LinearProgressIndicator progress_hp;
+    LinearProgressIndicator progress_attack;
+    LinearProgressIndicator progress_defense;
+    LinearProgressIndicator progress_specialAttack;
+    LinearProgressIndicator progress_specialDefense;
+    LinearProgressIndicator progress_speed;
+    TextView hp;
+    TextView attack;
+    TextView defense;
+    TextView specialAttack;
+    TextView specialDefense;
+    TextView speed;
+    TextView total;
 
-
+    private PageViewModel pageViewModel;
 
     public StatsFragment() { }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageViewModel = new ViewModelProvider(requireActivity()).get(PageViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,40 +51,74 @@ public class StatsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
+        progress_hp = view.findViewById(R.id.progress_hp);
+        progress_attack = view.findViewById(R.id.progress_attack);
+        progress_defense = view.findViewById(R.id.progress_defense);
+        progress_specialAttack = view.findViewById(R.id.progress_special_attack);
+        progress_specialDefense = view.findViewById(R.id.progress_special_defense);
+        progress_speed = view.findViewById(R.id.progress_speed);
 
-        SharedPreferences preferences = getActivity().getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        this.color = preferences.getInt("currentColor",0);
-        this.lighterColor = preferences.getInt("lighterColor",0);
+        hp = view.findViewById(R.id.tag_hp);
+        attack = view.findViewById(R.id.tag_attack);
+        defense = view.findViewById(R.id.tag_defense);
+        specialAttack = view.findViewById(R.id.tag_special_attack);
+        specialDefense = view.findViewById(R.id.tag_special_defense);
+        speed = view.findViewById(R.id.tag_speed);
 
-        LinearProgressIndicator progress_hp = view.findViewById(R.id.progress_hp);
-        progress_hp.setMax(100);
-        progress_hp.setProgress(44);
+        total = view.findViewById(R.id.total_stats);
 
-        /*Drawable initialProgressBar = AppCompatResources.getDrawable(this.getContext(), R.drawable.progress_bar);
-        Drawable progressBar = DrawableCompat.wrap(initialProgressBar);
-        DrawableCompat.setTint(progressBar, color);
-        */
-        progress_hp.setIndicatorColor(color);
-
-
-
-        View line1 = view.findViewById(R.id.line1);
-        line1.setBackgroundColor(lighterColor);
-        View line2 = view.findViewById(R.id.line2);
-        line2.setBackgroundColor(lighterColor);
-        View line3 = view.findViewById(R.id.line3);
-        line3.setBackgroundColor(lighterColor);
-        View line4 = view.findViewById(R.id.line4);
-        line4.setBackgroundColor(lighterColor);
-        View line5 = view.findViewById(R.id.line5);
-        line5.setBackgroundColor(lighterColor);
-        View line6 = view.findViewById(R.id.line6);
-        line6.setBackgroundColor(lighterColor);
-
-        TextView total_tg = view.findViewById(R.id.total_tag);
-        total_tg.setTextColor(color);
+        progress_hp.setMax(255);
+        progress_attack.setMax(190);
+        progress_defense.setMax(230);
+        progress_specialAttack.setMax(194);
+        progress_specialDefense.setMax(230);
+        progress_speed.setMax(200);
 
 
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        pageViewModel.getPokemon().observe(requireActivity(), new Observer<PokemonDetails>() {
+            @Override
+            public void onChanged(PokemonDetails pokemonDetails) {
+                updateData(pokemonDetails);
+            }
+        });
+    }
+
+
+     private void updateData(PokemonDetails pokemonDetails) {
+        this.pokemon = pokemonDetails;
+
+        Log.d("test2", String.valueOf(pokemon.getName()));
+        int hpValue = pokemon.getStats().get("hp");
+        int attackValue = pokemon.getStats().get("attack");
+        int defenseValue = pokemon.getStats().get("defense");
+        int spAttackValue = pokemon.getStats().get("special-defense");
+        int spDefenseValue = pokemon.getStats().get("special-attack");
+        int speedValue = pokemon.getStats().get("speed");
+        int totalvalue = hpValue + attackValue + defenseValue + spAttackValue + spDefenseValue + speedValue;
+
+        hp.setText(Integer.toString(hpValue));
+        attack.setText(Integer.toString(attackValue));
+        defense.setText(Integer.toString(defenseValue));
+        specialAttack.setText(Integer.toString(spAttackValue));
+        specialDefense.setText(Integer.toString(spDefenseValue));
+        speed.setText(Integer.toString(speedValue));
+
+        progress_hp.setProgress(hpValue);
+        progress_attack.setProgress(attackValue);
+        progress_defense.setProgress(defenseValue);
+        progress_specialAttack.setProgress(spAttackValue);
+        progress_specialDefense.setProgress(spDefenseValue);
+        progress_speed.setProgress(speedValue);
+
+        total.setText(Integer.toString(totalvalue));
+    }
+
+
 }

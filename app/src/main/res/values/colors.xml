@@ -32,5 +32,25 @@
     <color name="rock">#dacd97</color>
 
 
+    <color name="normalLighter">#80cdcec3</color>
+    <color name="poisonLighter">#80bf85b8</color>
+    <color name="psychicLighter">#80fb88c5</color>
+    <color name="grassLighter">#80a8e17c</color>
+    <color name="groundLighter">#80efd583</color>
+    <color name="iceLighter">#8095f1fe</color>
+    <color name="fireLighter">#80fc8072</color>
+    <color name="dragonLighter">#80a798fe</color>
+    <color name="waterLighter">#8080c2fe</color>
+    <color name="bugLighter">#80d2dd56</color>
+    <color name="darkLighter">#80a4897a</color>
+    <color name="fightingLighter">#80be7d71</color>
+    <color name="ghostLighter">#809a97e0</color>
+    <color name="steelLighter">#80c4c1dc</color>
+    <color name="flyingLighter">#809bbbff</color>
+    <color name="electricLighter">#80fdeb65</color>
+    <color name="fairyLighter">#80fbc2ff</color>
+    <color name="rockLighter">#80dacd97</color>
+
+
 
 </resources>

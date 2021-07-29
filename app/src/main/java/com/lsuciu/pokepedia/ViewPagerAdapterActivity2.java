@@ -1,18 +1,22 @@
 package com.lsuciu.pokepedia;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import java.io.Serializable;
+
 public class ViewPagerAdapterActivity2 extends FragmentStateAdapter {
 
     private int NR_FRAGMENTS = 3;
 
+
     public ViewPagerAdapterActivity2(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
-
 
 
     @NonNull

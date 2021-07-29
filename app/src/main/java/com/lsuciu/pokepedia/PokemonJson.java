@@ -5,7 +5,9 @@ import android.widget.LinearLayout;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PokemonJson {
 
@@ -32,6 +34,15 @@ public class PokemonJson {
 
     @SerializedName("sprites")
     private Sprite sprite;
+
+    public Map<String, Integer> getStatsMap(){
+        Map<String, Integer> statsMap = new HashMap<String, Integer>();
+
+        for (PokemonStats ps: stats) {
+            statsMap.put(ps.getPokemonStatsDetails().getName(), ps.getBase_stat());
+        }
+        return statsMap;
+    }
 
     @Override
     public String toString() {

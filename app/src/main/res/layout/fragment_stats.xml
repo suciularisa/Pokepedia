@@ -38,16 +38,18 @@
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
                 android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor"
                 />
+
             <TextView
                 android:id="@+id/tag_hp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
-                />
+                android:layout_weight="1"
+                android:text="NR"
+                android:textColor="?attr/typeColor" />
         </LinearLayout>
 
 
@@ -55,7 +57,7 @@
             android:id="@+id/line1"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
 
         <TextView
@@ -75,10 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:indeterminate="false"
-                app:trackColor="@color/white"
+                app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackThickness="15dp" />
+                android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor" />
             <TextView
                 android:id="@+id/tag_attack"
                 android:layout_width="wrap_content"
@@ -87,6 +89,7 @@
                 android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="?attr/typeColor"
                 />
         </LinearLayout>
 
@@ -94,7 +97,7 @@
             android:id="@+id/line2"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
 
         <TextView
@@ -116,7 +119,8 @@
                 android:layout_weight="10"
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackColor="@color/white"
+                android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor"
                 />
             <TextView
                 android:id="@+id/tag_defense"
@@ -126,6 +130,7 @@
                 android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="?attr/typeColor"
                 />
         </LinearLayout>
 
@@ -133,7 +138,7 @@
             android:id="@+id/line3"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
 
 
@@ -156,7 +161,8 @@
                 android:layout_weight="10"
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackColor="@color/white"
+                android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor"
                 />
             <TextView
                 android:id="@+id/tag_special_attack"
@@ -166,6 +172,7 @@
                 android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="?attr/typeColor"
                 />
         </LinearLayout>
 
@@ -173,7 +180,7 @@
             android:id="@+id/line4"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -195,7 +202,8 @@
                 android:layout_weight="10"
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackColor="@color/white"
+                android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor"
                 />
             <TextView
                 android:id="@+id/tag_special_defense"
@@ -205,13 +213,14 @@
                 android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="?attr/typeColor"
                 />
         </LinearLayout>
         <View
             android:id="@+id/line5"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -232,7 +241,8 @@
                 android:layout_weight="10"
                 app:trackThickness="15dp"
                 app:trackCornerRadius="10dp"
-                app:trackColor="@color/white"
+                android:background="@drawable/progress_bar"
+                app:indicatorColor="?attr/typeColor"
                 />
             <TextView
                 android:id="@+id/tag_speed"
@@ -242,6 +252,7 @@
                 android:text="NR"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="?attr/typeColor"
                 />
         </LinearLayout>
 
@@ -249,7 +260,7 @@
             android:id="@+id/line6"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="@color/purple_200"/>
+            android:background="?attr/secondColor"/>
 
         <TextView
             android:id="@+id/total_tag"
@@ -259,7 +270,7 @@
             android:text="Total"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            />
+            android:textColor="?attr/secondColor" />
 
         <TextView
             android:id="@+id/total_stats"
@@ -267,8 +278,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Total"
-            android:gravity="center"
-            />
+            android:gravity="center"/>
+
 
 
     </LinearLayout>

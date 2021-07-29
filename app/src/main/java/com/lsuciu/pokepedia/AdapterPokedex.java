@@ -46,6 +46,7 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
             public void onClick(View v) {
                 //open second activity
                 Intent i = new Intent(myContext, Activity2.class);
+                i.putExtra("selected_pokemon", pokemon);
                 myContext.startActivity(i);
             }
         });

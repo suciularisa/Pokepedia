@@ -15,4 +15,7 @@ public interface ApiServiceRX {
 
     @GET
     Observable<EvolutionJson> getEvolutionChain(@Url String url);
+
+    @GET
+    Observable<PokemonData> getPokemon(@Url String url);
 }

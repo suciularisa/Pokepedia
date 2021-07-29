@@ -3,41 +3,55 @@ package com.lsuciu.pokepedia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.lsuciu.pokepedia.data.Pokemon;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class Activity2 extends AppCompatActivity{
-    private RadioGroup radioGroup;
+public class Activity2 extends AppCompatActivity  {
     private Toolbar toolbar;
-    private final String TAG = "Activity2";
     private Intent intent;
-    private int colorId, color, lighterColor;
+    private PokemonDetails pokemonDetails;
+    CompositeDisposable compositeDisposable;
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    ViewPagerAdapterActivity2 adapter;
+    Callback callback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Get the selected pokemon from the first activity
+        intent = getIntent();
+        PokemonData pokemon = (PokemonData)intent.getSerializableExtra("selected_pokemon");
+
+        pokemonDetails = new PokemonDetails();
+        pokemonDetails.setId(pokemon.getId());
+        pokemonDetails.setName(pokemon.getName());
+        pokemonDetails.setTypes(pokemon.getTypes());
+        pokemonDetails.setImage(pokemon.getImage());
+
+
+        setTheme(ThemeUtils.getThemeId(pokemon.getTypes().get(0).getName()));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
 
@@ -50,11 +64,10 @@ public class Activity2 extends AppCompatActivity{
         actionBar.setHomeAsUpIndicator(R.drawable.back_arrow);
 
 
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
-
-        ViewPagerAdapterActivity2 adapter = new ViewPagerAdapterActivity2(this);
+        // Viewpager and tabs
+         tabLayout = findViewById(R.id.tabs);
+         viewPager2 = findViewById(R.id.view_pager);
+         adapter = new ViewPagerAdapterActivity2(this);
         viewPager2.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager2,
@@ -64,48 +77,26 @@ public class Activity2 extends AppCompatActivity{
                         tab.setText(adapter.getFragmentTitle(position));
                     }
                 }).attach();
+        //////
 
-        intent = getIntent();
-        Pokemon pokemon = (Pokemon)intent.getSerializableExtra("selected_pokemon");
 
+
+
+        //set the activity visible fields
         TextView type1 = findViewById(R.id.pokemon_type_1);
         TextView type2 = findViewById(R.id.pokemon_type_2);
         TextView name = findViewById(R.id.pokemon_name);
+        ImageView image = findViewById(R.id.pokemon_image);
 
-        type1.setText(pokemon.getTypes().get(0).getName());
-        if(pokemon.getTypes().size() == 2) {
-            type2.setText(pokemon.getTypes().get(1).getName());
+        type1.setText(pokemonDetails.getTypes().get(0).getName());
+        if(pokemonDetails.getTypes().size() == 2) {
+            type2.setText(pokemonDetails.getTypes().get(1).getName());
             type2.setBackgroundResource(R.drawable.transparent_placeholder);
         }
-        name.setText(pokemon.getName());
-
-        LinearLayout layout = findViewById(R.id.top_layout);
-        colorId = pokemon.getTypes().get(0).getColorId();
-        color = ContextCompat.getColor(layout.getContext(), colorId);
-        layout.getBackground().setTint(color);
-
-        //lighten the color
-        lighterColor = ColorUtils.blendARGB(color, Color.WHITE, 0.5f);
-
-
-        //change the status bar color
-        Window window = this.getWindow();
-        window.setStatusBarColor(color);
-
-
-        //change viewpager color
-        tabLayout.setSelectedTabIndicatorColor(color);
-        tabLayout.setTabTextColors(color, ContextCompat.getColor(tabLayout.getContext(), R.color.white));
-
-        //send color to viewpager fragments
-        SharedPreferences preferences;
-        String MY_SHARED_PREFERENCES = "MySharedPrefs" ;
-        preferences = getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("currentColor", color);
-        editor.putInt("lighterColor", lighterColor);
-        editor.commit();
-
+        name.setText(pokemonDetails.getName());
+        Glide.with(this)
+                .load(pokemonDetails.getImage())
+                .into(image);
 
     }
 
@@ -117,8 +108,64 @@ public class Activity2 extends AppCompatActivity{
         return true;
     }
 
-/*    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://pokeapi.co/api/v2/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
+
+        int id =  pokemonDetails.getId();
+        compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(apiServiceRX.getPokemon(id)
+                            .map(pokemonJson -> {
+                              pokemonDetails.setHeight(pokemonJson.getHeight());
+                              pokemonDetails.setWeight(pokemonJson.getWeight());
+                              pokemonDetails.setStats(pokemonJson.getStatsMap());
+                              return pokemonDetails;
+                            })
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe());
+
+        compositeDisposable.add(apiServiceRX.getSpeciesDetails(id)
+                .map(item -> {
+                    pokemonDetails.setHappiness(item.getHappiness());
+                    pokemonDetails.setCapture(item.getCaptureRate());
+                    pokemonDetails.setDescription(item.getEntries().get(7).getEntry());
+                    return item;
+                })
+                .flatMap(item -> apiServiceRX.getEvolutionChain(item.getEvolutionChain().getEvolutionChainUrl()))
+                .map(item -> {
+                    pokemonDetails.setEvolutions(item.getSpeciesNames());
+                    pokemonDetails.setEvolutionsUrl(item.getSpeciesURLS());
+                    return pokemonDetails;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(item -> {
+                    callback.sendData(item);
+                }, throwable -> Log.v("RETROFIT", throwable.getMessage())));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        compositeDisposable.clear();
+    }
+
+
+    public interface Callback {
+        void sendData(PokemonDetails pokemonDetails);
+    }
+
+
+    public void receiveDataListener(Callback listener){
+        callback = listener;
+    }
+
 }

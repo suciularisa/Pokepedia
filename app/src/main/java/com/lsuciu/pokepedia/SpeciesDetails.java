@@ -2,6 +2,8 @@ package com.lsuciu.pokepedia;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class SpeciesDetails {
 
     @SerializedName("base_happiness")
@@ -13,7 +15,17 @@ public class SpeciesDetails {
     @SerializedName("evolution_chain")
     private EvolutionChain evolutionChain;
 
+    @SerializedName("flavor_text_entries")
+    private List<Entries> entries;
 
+
+    public List<Entries> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<Entries> entries) {
+        this.entries = entries;
+    }
 
     public EvolutionChain getEvolutionChain() {
         return evolutionChain;
