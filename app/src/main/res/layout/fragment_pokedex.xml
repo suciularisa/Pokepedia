@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
   <androidx.appcompat.widget.SearchView
-      android:id="@+id/seach_view"
+      android:id="@+id/search_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="10dp"
@@ -14,7 +14,7 @@
       android:layout_marginTop="5dp"
       android:layout_marginBottom="5dp"
       android:background="@drawable/search_bar"
-      app:queryHint= "Search Pokemon"
+      app:queryHint= "Search Pokemon..."
       app:iconifiedByDefault="false"
       />
 

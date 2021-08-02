@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -17,6 +18,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -34,23 +40,22 @@ public class Activity2 extends AppCompatActivity  {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     ViewPagerAdapterActivity2 adapter;
-    Callback callback;
+    PageViewModel pageViewModel;
+    PokemonData pokemon, pokemon2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
+
         // Get the selected pokemon from the first activity
         intent = getIntent();
-        PokemonData pokemon = (PokemonData)intent.getSerializableExtra("selected_pokemon");
-
+        pokemon = (PokemonData)intent.getSerializableExtra("selected_pokemon");
+        pokemon2 = (PokemonData)intent.getSerializableExtra("selected_pokemon2");
         pokemonDetails = new PokemonDetails();
-        pokemonDetails.setId(pokemon.getId());
-        pokemonDetails.setName(pokemon.getName());
-        pokemonDetails.setTypes(pokemon.getTypes());
-        pokemonDetails.setImage(pokemon.getImage());
+        initData();
 
-
-        setTheme(ThemeUtils.getThemeId(pokemon.getTypes().get(0).getName()));
+        setTheme(ThemeUtils.getThemeId(pokemonDetails.getTypes().get(0).getName()));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
@@ -111,45 +116,47 @@ public class Activity2 extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+        if(pokemon2 == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://pokeapi.co/api/v2/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
 
-        ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
+            ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
 
-        int id =  pokemonDetails.getId();
-        compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(apiServiceRX.getPokemon(id)
-                            .map(pokemonJson -> {
-                              pokemonDetails.setHeight(pokemonJson.getHeight());
-                              pokemonDetails.setWeight(pokemonJson.getWeight());
-                              pokemonDetails.setStats(pokemonJson.getStatsMap());
-                              return pokemonDetails;
-                            })
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe());
+            int id = pokemonDetails.getId();
+            compositeDisposable = new CompositeDisposable();
+            compositeDisposable.add(apiServiceRX.getPokemon(id)
+                    .map(pokemonJson -> {
+                        pokemonDetails.setHeight(pokemonJson.getHeight());
+                        pokemonDetails.setWeight(pokemonJson.getWeight());
+                        pokemonDetails.setStats(pokemonJson.getStatsMap());
+                        return pokemonDetails;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe());
 
-        compositeDisposable.add(apiServiceRX.getSpeciesDetails(id)
-                .map(item -> {
-                    pokemonDetails.setHappiness(item.getHappiness());
-                    pokemonDetails.setCapture(item.getCaptureRate());
-                    pokemonDetails.setDescription(item.getEntries().get(7).getEntry());
-                    return item;
-                })
-                .flatMap(item -> apiServiceRX.getEvolutionChain(item.getEvolutionChain().getEvolutionChainUrl()))
-                .map(item -> {
-                    pokemonDetails.setEvolutions(item.getSpeciesNames());
-                    pokemonDetails.setEvolutionsUrl(item.getSpeciesURLS());
-                    return pokemonDetails;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(item -> {
-                    callback.sendData(item);
-                }, throwable -> Log.v("RETROFIT", throwable.getMessage())));
+            compositeDisposable.add(apiServiceRX.getSpeciesDetails(id)
+                    .map(item -> {
+                        pokemonDetails.setHappiness(item.getHappiness());
+                        pokemonDetails.setCapture(item.getCaptureRate());
+                        pokemonDetails.setDescription(item.getEntries().get(7).getEntry());
+                        return item;
+                    })
+                    .flatMap(item -> apiServiceRX.getEvolutionChain(item.getEvolutionChain().getEvolutionChainUrl()))
+                    .map(item -> {
+                        pokemonDetails.setEvolutions(item.getSpeciesNames());
+                        pokemonDetails.setEvolutionsUrl(item.getSpeciesURLS());
+                        return pokemonDetails;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(item -> {
+                        pageViewModel.setPokemon(pokemonDetails);
+                    }, throwable -> Log.v("RETROFIT", throwable.getMessage())));
+        }
     }
 
     @Override
@@ -158,14 +165,18 @@ public class Activity2 extends AppCompatActivity  {
         compositeDisposable.clear();
     }
 
+    private void initData(){
+        if(pokemon2 == null){
+            pokemonDetails.setId(pokemon.getId());
+            pokemonDetails.setName(pokemon.getName());
+            pokemonDetails.setTypes(pokemon.getTypes());
+            pokemonDetails.setImage(pokemon.getImage());
+        }else{
+          //  PokemonDatabase pokemonDB = PokemonDatabase.getInstance(this);
+           // Pokemon pokemonDataBase = (Pokemon) pokemonDB.pokemonDao().getPokemon(pokemon2.getId());
 
-    public interface Callback {
-        void sendData(PokemonDetails pokemonDetails);
-    }
+        }
 
-
-    public void receiveDataListener(Callback listener){
-        callback = listener;
     }
 
 }

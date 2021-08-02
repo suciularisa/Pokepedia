@@ -4,20 +4,23 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lsuciu.pokepedia.data.Pokemon;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,13 +31,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class PokedexFragment extends Fragment {
+public class PokedexFragment extends Fragment{
 
     public static final String title = "Pokedex";
 
     List<PokemonData> pokemonDataList = new ArrayList<>();
-    RecyclerView.Adapter adapter;
+    AdapterPokedex adapter;
     CompositeDisposable compositeDisposable;
+    SearchView searchView;
+    RecyclerView recyclerView;
+    List<PokemonData> newPokemonDataList;
 
     public PokedexFragment() {
         // Required empty public constructor
@@ -46,7 +52,36 @@ public class PokedexFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_pokedex, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewPokedex);
+        searchView = view.findViewById(R.id.search_view);
+        searchView.onActionViewExpanded();
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (TextUtils.isEmpty(query)){
+                    adapter.setData(pokemonDataList);
+                    return true;
+                }
+                newPokemonDataList = pokemonDataList.stream().filter(pokemonData -> pokemonData.getName().toLowerCase().contains(query)).collect(Collectors.toList());
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)){
+                    adapter.setData(pokemonDataList);
+                    return true;
+                }
+                newPokemonDataList = pokemonDataList.stream().filter(pokemonData -> pokemonData.getName().toLowerCase().contains(newText)).collect(Collectors.toList());
+
+                adapter.setData(newPokemonDataList);
+                return true;
+            }
+        });
+
+
+        recyclerView = view.findViewById(R.id.recyclerViewPokedex);
 
         adapter = new AdapterPokedex(getActivity(), pokemonDataList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
@@ -99,4 +134,11 @@ public class PokedexFragment extends Fragment {
         super.onDestroyView();
         compositeDisposable.clear();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.lsuciu.pokepedia.data.PokemonDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class PoketeamFragment extends Fragment{
@@ -25,7 +27,7 @@ public class PoketeamFragment extends Fragment{
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     AdapterPoketeam adapter;
-
+    List<PokemonData> pokemonDataList;
 
     public PoketeamFragment(){ }
 
@@ -38,7 +40,32 @@ public class PoketeamFragment extends Fragment{
 
 
         PokemonDatabase pokemonDB = PokemonDatabase.getInstance(this.getContext());
-         ArrayList<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDB.pokemonDao().getPokemons();
+       /* Pokemon pokemon = new Pokemon();
+        pokemon.setId(101);
+        pokemon.setName("electrode");
+        pokemon.setBaseHappiness(70);
+        pokemon.setCaptureRate(60);
+        pokemon.setDescription("ELECTRODE eats electricity in the\\natmosphere. On days when lightning\\nstrikes, you can see this POKéMON\\u000cexploding all over the place from\\neating too much electricity.");
+       pokemon.setHeight(12);
+       pokemon.setWeight(666);
+       pokemon.setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/101.png");
+       pokemon.setTypes(new ArrayList<>(Arrays.asList(Type.ELECTRIC)));
+       pokemon.setEvolutions("100,101,");
+       pokemon.setStats("60,50,70,80,80,150,");
+       pokemonDB.pokemonDao().insertPokemon(pokemon);*/
+
+         List<Pokemon> pokemons = (ArrayList<Pokemon>) pokemonDB.pokemonDao().getPokemons();
+        pokemonDataList = new ArrayList<>();
+
+        for (Pokemon pokemon1: pokemons) {
+            PokemonData pokemonData = new PokemonData();
+            pokemonData.setId(pokemon1.getId());
+            pokemonData.setName(pokemon1.getName());
+            pokemonData.setTypes(pokemon1.getTypes());
+            pokemonData.setImage(pokemon1.getImage());
+
+            pokemonDataList.add(pokemonData);
+        }
 
         // For the Recycler View
         recyclerView = view.findViewById(R.id.recyclerViewPoketeam);
@@ -47,8 +74,8 @@ public class PoketeamFragment extends Fragment{
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-       // adapter = new AdapterPoketeam(getActivity(), pokemons);
-       // recyclerView.setAdapter(adapter);
+        adapter = new AdapterPoketeam(getActivity(), pokemonDataList);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }

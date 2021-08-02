@@ -1,6 +1,7 @@
 package com.lsuciu.pokepedia;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -16,6 +17,7 @@ public interface ApiServiceRX {
     @GET
     Observable<EvolutionJson> getEvolutionChain(@Url String url);
 
-    @GET
-    Observable<PokemonData> getPokemon(@Url String url);
+    @GET("pokemon/{name}")
+    Observable<PokemonJson> getPokemon(@Path("name") String name);
+
 }

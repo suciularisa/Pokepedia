@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,47 +14,40 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.lsuciu.pokepedia.data.Pokemon;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHolder>{
+public class AdapterEvolutions extends RecyclerView.Adapter<AdapterEvolutions.ViewHolder>{
 
     List<PokemonData> pokemons;
     private Context myContext;
     StringBuilder sb;
 
-    public AdapterPokedex(Context context, List<PokemonData> pokemons) {
+    public AdapterEvolutions(Context context, List<PokemonData> pokemons) {
         this.pokemons = pokemons;
         myContext = context;
     }
 
     @NonNull
     @Override
-    public AdapterPokedex.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_pokemon_pokedex, parent, false);
-        return new AdapterPokedex.ViewHolder(view);
+    public AdapterEvolutions.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_pokemon_poketeam, parent, false);
+        return new AdapterEvolutions.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterPokedex.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterEvolutions.ViewHolder holder, int position) {
         PokemonData pokemon = pokemons.get(position);
         holder.bind(pokemon);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open second activity
-                Intent i = new Intent(myContext, Activity2.class);
-                i.putExtra("selected_pokemon", pokemon);
-                myContext.startActivity(i);
+                Intent intent = new Intent(myContext, Activity2.class);
+                intent.putExtra("selected_pokemon", pokemon);
+                myContext.startActivity(intent);
             }
         });
-    }
-    public void setData(List<PokemonData> pokemons){
-        this.pokemons = pokemons;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -66,7 +57,7 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        int id;
+
         int colorId;
         int color;
         private CardView cardView;
@@ -75,6 +66,7 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
         private TextView pokemon_type_1;
         private TextView pokemon_type_2;
         private TextView pokemon_id;
+        int id;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -84,7 +76,7 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
             pokemon_type_1 = itemView.findViewById(R.id.pokemon_type1);
             pokemon_type_2 = itemView.findViewById(R.id.pokemon_type2);
             pokemon_id = itemView.findViewById(R.id.pokemon_id);
-            cardView = itemView.findViewById(R.id.card_pokedex);
+            cardView = itemView.findViewById(R.id.card_poketeam);
         }
 
         private void bind(PokemonData pokemon) {
@@ -113,6 +105,4 @@ public class AdapterPokedex extends RecyclerView.Adapter<AdapterPokedex.ViewHold
         }
     }
 
-
 }
-

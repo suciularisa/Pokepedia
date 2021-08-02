@@ -19,8 +19,10 @@ import com.lsuciu.pokepedia.data.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,9 +37,9 @@ public class EvolutionsFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    AdapterPoketeam adapter;
-    PageViewModel pageViewModel;
-    List<PokemonData> evolutions;
+    AdapterEvolutions adapter;
+    PageViewModel2 pageViewModel2;
+    List<PokemonData> evolutions = new ArrayList<>();
     CompositeDisposable compositeDisposable;
 
 
@@ -47,8 +49,7 @@ public class EvolutionsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(requireActivity()).get(PageViewModel.class);
-        evolutions = new ArrayList<>();
+        pageViewModel2 = new ViewModelProvider(requireActivity()).get(PageViewModel2.class);
     }
 
     @Override
@@ -63,7 +64,14 @@ public class EvolutionsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new AdapterPoketeam(this.getContext(), evolutions);
+        pageViewModel2.getPokemons().observe(requireActivity(), new Observer<List<PokemonData>>() {
+            @Override
+            public void onChanged(List<PokemonData> pokemonDataList) {
+                updateData(pokemonDataList);
+            }
+        });
+
+        adapter = new AdapterEvolutions(this.getContext(), evolutions);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -72,28 +80,13 @@ public class EvolutionsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        pageViewModel.getPokemon().observe(requireActivity(), new Observer<PokemonDetails>() {
-            @Override
-            public void onChanged(PokemonDetails pokemonDetails) {
-                updateData(pokemonDetails);
-            }
-        });
     }
 
-    private void updateData(PokemonDetails pokemonDetails){
 
-        Log.d("test2", String.valueOf(pokemonDetails.getEvolutionsUrl().size()));
+    private void updateData(List<PokemonData> pokemonData){
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
-
-
-
+        evolutions = pokemonData;
+        evolutions.sort(Comparator.comparing(PokemonData::getId));
     }
 
 }

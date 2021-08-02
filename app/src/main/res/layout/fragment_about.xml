@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="SQUIRTLE’s shell is not merely used\nfor protection.\nThe shell’s rounded shape and the\u000cgrooves on its surface help minimize\nresistance in water, enabling this\nPOKéMON to swim at high speeds."
+        android:text="Description"
         android:textAlignment="center"
         android:textColor="@color/black" />
 
@@ -20,32 +20,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/pokemon_description"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pokemon_description"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="10dp">
 
         <View
             android:id="@+id/line1"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="?attr/secondColor"/>
+            android:background="?attr/secondColor" />
+
         <TextView
             android:id="@+id/id_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ID"
-            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            />
+            android:textColor="?attr/typeColor" />
+
         <TextView
             android:id="@+id/id_pokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ID"
-            android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
 
             />
 
@@ -53,23 +56,25 @@
             android:id="@+id/line2"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="?attr/secondColor"/>
+            android:background="?attr/secondColor" />
+
         <TextView
             android:id="@+id/height_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Height"
-            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/typeColor"
 
             />
+
         <TextView
             android:id="@+id/height_pokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Height"
-            android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
 
             />
 
@@ -77,23 +82,25 @@
             android:id="@+id/line3"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="?attr/secondColor"/>
+            android:background="?attr/secondColor" />
+
         <TextView
             android:id="@+id/weight_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Weight"
-            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/typeColor"
 
             />
+
         <TextView
             android:id="@+id/weight_pokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Weight"
-            android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
 
             />
 
@@ -101,23 +108,25 @@
             android:id="@+id/line4"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="?attr/secondColor"/>
+            android:background="?attr/secondColor" />
+
         <TextView
             android:id="@+id/hapiness_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Base Happiness"
-            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/typeColor"
 
             />
+
         <TextView
             android:id="@+id/hapiness_pokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Base Happiness"
-            android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
 
             />
 
@@ -125,14 +134,15 @@
             android:id="@+id/line5"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:background="?attr/secondColor"/>
+            android:background="?attr/secondColor" />
+
         <TextView
             android:id="@+id/capture_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Capture Rate"
-            android:textColor="?attr/typeColor"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/typeColor"
 
             />
 
@@ -141,8 +151,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Capture"
-            android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
 
             />
 

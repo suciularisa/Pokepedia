@@ -23,16 +23,25 @@ public class Pokemon implements Serializable {
     private String name;
     @ColumnInfo(name = "Types")
     private List<Type> types;
-
-    //private double height;
-   // private double weight;
-
-    //from the pokemon's JSON, go to the link from species section for these 3
-   /* private int baseHappiness;
+    @ColumnInfo(name = "Image")
+    private  String image;
+    @ColumnInfo(name = "Description")
+    private String description;
+    @ColumnInfo(name = "Height")
+    private int height;
+    @ColumnInfo(name = "Weight")
+    private int weight;
+    @ColumnInfo(name = "Base_Happiness")
+    private int baseHappiness;
+    @ColumnInfo(name = "Capture_Rate")
     private int captureRate;
+    @ColumnInfo(name = "Evolutions")
+    private String evolutions;
+    @ColumnInfo(name = "Stats")
+    private String stats;
 
-    private String description;*/
 
+    public  Pokemon(){}
 
     public Pokemon(String name, int id, List<Type> types) {
         this.name = name;
@@ -65,19 +74,35 @@ public class Pokemon implements Serializable {
         this.types = types;
     }
 
-   /* public double getHeight() {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -97,11 +122,19 @@ public class Pokemon implements Serializable {
         this.captureRate = captureRate;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEvolutions() {
+        return evolutions;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }*/
+    public void setEvolutions(String evolutions) {
+        this.evolutions = evolutions;
+    }
+
+    public String getStats() {
+        return stats;
+    }
+
+    public void setStats(String stats) {
+        this.stats = stats;
+    }
 }

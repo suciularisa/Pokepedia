@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = Pokemon.class, version = 1)
+@Database(entities = Pokemon.class, exportSchema = false, version = 1)
 
 @TypeConverters(Converter.class)
 public abstract class PokemonDatabase extends RoomDatabase {
@@ -20,6 +20,7 @@ public abstract class PokemonDatabase extends RoomDatabase {
     public static synchronized PokemonDatabase getInstance(Context context){
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(), PokemonDatabase.class, DB_NAME)
+                        //.fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build();
         }

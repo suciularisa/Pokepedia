@@ -24,6 +24,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
 
     List<PokemonData> pokemons;
     private Context myContext;
+    StringBuilder sb;
 
     public AdapterPoketeam(Context context, List<PokemonData> pokemons) {
         this.pokemons = pokemons;
@@ -46,7 +47,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(myContext, Activity2.class);
-                intent.putExtra("selected_pokemon", pokemon);
+                intent.putExtra("selected_pokemon2", pokemon);
                 myContext.startActivity(intent);
             }
         });
@@ -68,7 +69,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
         private TextView pokemon_type_1;
         private TextView pokemon_type_2;
         private TextView pokemon_id;
-
+        int id;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +83,7 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
 
         private void bind(PokemonData pokemon) {
             Glide.with(myContext)
-                    .load("https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg?resize=750px:*")
+                    .load(pokemon.getImage())
                     .into(image_pokemon);
             pokemon_name.setText(pokemon.getName());
             pokemon_type_1.setText(pokemon.getTypes().get(0).getName());
@@ -90,7 +91,16 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
                 pokemon_type_2.setText(pokemon.getTypes().get(1).getName());
                 pokemon_type_2.setBackgroundResource(R.drawable.transparent_placeholder);
             }
-            pokemon_id.setText(Integer.toString(pokemon.getId()));
+            sb = new StringBuilder();
+            id = pokemon.getId();
+
+            if(id / 10 == 0){
+                sb.append("#00" + id);
+            }else if(id / 100 == 0){
+                sb.append("#0" + id);
+            }else sb.append("#" + id);
+            pokemon_id.setText(sb.toString());
+
 
             colorId = pokemon.getTypes().get(0).getColorId();
             color = ContextCompat.getColor(cardView.getContext(), colorId);
