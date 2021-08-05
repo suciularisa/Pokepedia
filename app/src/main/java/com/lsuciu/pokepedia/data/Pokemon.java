@@ -36,9 +36,9 @@ public class Pokemon implements Serializable {
     @ColumnInfo(name = "Capture_Rate")
     private int captureRate;
     @ColumnInfo(name = "Evolutions")
-    private String evolutions;
+    private List<Integer> evolutions;
     @ColumnInfo(name = "Stats")
-    private String stats;
+    private List<Integer> stats;
 
 
     public  Pokemon(){}
@@ -122,19 +122,19 @@ public class Pokemon implements Serializable {
         this.captureRate = captureRate;
     }
 
-    public String getEvolutions() {
+    public List<Integer> getEvolutions() {
         return evolutions;
     }
 
-    public void setEvolutions(String evolutions) {
+    public void setEvolutions(List<Integer> evolutions) {
         this.evolutions = evolutions;
     }
 
-    public String getStats() {
+    public List<Integer> getStats() {
         return stats;
     }
 
-    public void setStats(String stats) {
+    public void setStats(List<Integer> stats) {
         this.stats = stats;
     }
 }

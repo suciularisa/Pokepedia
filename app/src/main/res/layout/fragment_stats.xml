@@ -24,6 +24,7 @@
             android:text="HP"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
                 app:trackCornerRadius="10dp"
                 android:background="@drawable/progress_bar"
                 app:indicatorColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
 
             <TextView
@@ -66,6 +68,7 @@
             android:text="Attack"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,6 +93,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
         </LinearLayout>
 
@@ -106,6 +110,7 @@
             android:text="Defense"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,6 +136,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
         </LinearLayout>
 
@@ -148,6 +154,7 @@
             android:text="Special-Attack"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -173,6 +180,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
         </LinearLayout>
 
@@ -188,6 +196,7 @@
             android:text="Special-Defense"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
 
         <LinearLayout
@@ -214,6 +223,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
         </LinearLayout>
         <View
@@ -228,6 +238,7 @@
             android:text="Speed"
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="@font/custom_font"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -253,6 +264,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="?attr/typeColor"
+                android:fontFamily="@font/custom_font"
                 />
         </LinearLayout>
 
@@ -270,7 +282,8 @@
             android:text="Total"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:textColor="?attr/secondColor" />
+            android:textColor="?attr/secondColor"
+            android:fontFamily="@font/custom_font"/>
 
         <TextView
             android:id="@+id/total_stats"
@@ -278,7 +291,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Total"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/custom_font"/>
 
 
 

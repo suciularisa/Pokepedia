@@ -35,11 +35,11 @@ public class PokemonJson {
     @SerializedName("sprites")
     private Sprite sprite;
 
-    public Map<String, Integer> getStatsMap(){
-        Map<String, Integer> statsMap = new HashMap<String, Integer>();
+    public List<Integer> getStatsMap(){
+        List<Integer> statsMap = new ArrayList<Integer>();
 
         for (PokemonStats ps: stats) {
-            statsMap.put(ps.getPokemonStatsDetails().getName(), ps.getBase_stat());
+            statsMap.add(ps.getBase_stat());
         }
         return statsMap;
     }

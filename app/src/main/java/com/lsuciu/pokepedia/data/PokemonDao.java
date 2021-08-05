@@ -27,7 +27,13 @@ public interface PokemonDao {
     @Query("Select * from Pokemon where id = :idPokemon")
     Pokemon getPokemon(int idPokemon);
 
+    @Query("Delete from Pokemon where id = :idPokemon")
+    void deleteFromId(int idPokemon);
+
     @Query("DELETE FROM Pokemon")
     void delete();
+
+    @Query("Select * from Pokemon where id = :idPokemon")
+    Pokemon getFromId(int idPokemon);
 
 }

@@ -73,6 +73,7 @@ dependencies {
 
     implementation 'androidx.core:core:1.2.0'
 
-
+    //for lottie animations
+    implementation 'com.airbnb.android:lottie:4.0.0'
 
 }

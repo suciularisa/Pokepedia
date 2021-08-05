@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,13 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
     List<PokemonData> pokemons;
     private Context myContext;
     StringBuilder sb;
+    Integer label, pokemonId;
 
-    public AdapterPoketeam(Context context, List<PokemonData> pokemons) {
+    public AdapterPoketeam(Context context, List<PokemonData> pokemons, Integer label, Integer pokemonId) {
         this.pokemons = pokemons;
         myContext = context;
+        this.label = label;
+        this.pokemonId = pokemonId;
     }
 
     @NonNull
@@ -46,9 +51,20 @@ public class AdapterPoketeam extends RecyclerView.Adapter<AdapterPoketeam.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(myContext, Activity2.class);
-                intent.putExtra("selected_pokemon2", pokemon);
-                myContext.startActivity(intent);
+                if(pokemonId != pokemon.getId()){
+                    Intent intent = new Intent(myContext, Activity2.class);
+                    if(label == 2){
+                        if(PokemonDatabase.getInstance(myContext).pokemonDao().getPokemon(pokemon.getId()) != null)
+                            intent.putExtra("selected_pokemon2", pokemon);
+                        else intent.putExtra("selected_pokemon", pokemon);
+                    }
+                    else intent.putExtra("selected_pokemon", pokemon);
+                    myContext.startActivity(intent);
+                }else{
+                    Toast toast = Toast.makeText(myContext, "Already on this pokemon...", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             }
         });
     }

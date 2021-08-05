@@ -16,6 +16,7 @@
       android:background="@drawable/search_bar"
       app:queryHint= "Search Pokemon..."
       app:iconifiedByDefault="false"
+      android:fontFamily="@font/custom_font"
       />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -36,7 +36,8 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    app:layout_constraintBottom_toTopOf="@id/pokemon_type_1" />
+                    app:layout_constraintBottom_toTopOf="@id/pokemon_type_1"
+                    android:fontFamily="@font/custom_font"/>
 
                 <TextView
                     android:id="@+id/pokemon_type_1"
@@ -50,7 +51,8 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:fontFamily="@font/custom_font"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,7 +85,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/top_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/top_layout"
+            android:fontFamily="@font/custom_font"/>
 
 
         <com.google.android.material.tabs.TabLayout
@@ -91,7 +94,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10sp"
-            android:elevation="5dp"
             app:layout_constraintStart_toEndOf="@id/pokemon_name"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_name"
             app:tabGravity="fill"
@@ -102,7 +104,8 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="?attr/secondColor">
+            app:tabTextColor="?attr/secondColor"
+            android:fontFamily="@font/custom_font">
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -113,7 +116,9 @@
             app:layout_constraintTop_toBottomOf="@id/tabs"
             app:layout_constraintStart_toEndOf="@id/tabs"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            >
 
         </androidx.viewpager2.widget.ViewPager2>
 
@@ -128,7 +133,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:background="@null"
         />
-
 
 
 </FrameLayout>

@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDao;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,13 +53,7 @@ public class StatsFragment extends Fragment{
     TextView specialDefense;
     TextView speed;
     TextView total;
-
     private PageViewModel pageViewModel;
-    PageViewModel2 pageViewModel2;
-    List<PokemonData> pokemonDataList = new ArrayList<>();
-    CompositeDisposable compositeDisposable;
-    Retrofit retrofit;
-    ApiServiceRX apiServiceRX;
 
     public StatsFragment() { }
 
@@ -64,13 +61,6 @@ public class StatsFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = new ViewModelProvider(requireActivity()).get(PageViewModel.class);
-        pageViewModel2 = new ViewModelProvider(requireActivity()).get(PageViewModel2.class);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        apiServiceRX = retrofit.create(ApiServiceRX.class);
     }
 
     @Override
@@ -124,12 +114,12 @@ public class StatsFragment extends Fragment{
 
         Log.d("test2", String.valueOf(pokemon.getName()));
 
-        int hpValue = pokemon.getStats().get("hp");
-        int attackValue = pokemon.getStats().get("attack");
-        int defenseValue = pokemon.getStats().get("defense");
-        int spAttackValue = pokemon.getStats().get("special-defense");
-        int spDefenseValue = pokemon.getStats().get("special-attack");
-        int speedValue = pokemon.getStats().get("speed");
+        int hpValue = pokemon.getStats().get(0);
+        int attackValue = pokemon.getStats().get(1);
+        int defenseValue = pokemon.getStats().get(2);
+        int spAttackValue = pokemon.getStats().get(3);
+        int spDefenseValue = pokemon.getStats().get(4);
+        int speedValue = pokemon.getStats().get(5);
         int totalvalue = hpValue + attackValue + defenseValue + spAttackValue + spDefenseValue + speedValue;
 
         hp.setText(Integer.toString(hpValue));
@@ -147,42 +137,11 @@ public class StatsFragment extends Fragment{
         progress_speed.setProgress(speedValue);
 
         total.setText(Integer.toString(totalvalue));
-
-       //  compositeDisposable = new CompositeDisposable();
-
-         for (String name: pokemon.getEvolutions()) {
-
-             apiServiceRX.getPokemon(name)
-                     .map(item -> {
-                         PokemonData pokemonData = new PokemonData();
-                         pokemonData.setId(item.getId());
-                         pokemonData.setName(item.getName());
-                         pokemonData.setImage(item.getSprite().getSpriteDetails().getArtwork().getArtworkUrl());
-                         List<String> stringTypes = item.getStringTypes();
-                         List<Type> types = new ArrayList<>();
-                         for (String s:stringTypes) {
-                             types.add(Type.valueOf(s.toUpperCase()));
-                         }
-                         pokemonData.setTypes(types);
-
-                         return pokemonData;
-                     })
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(item -> {
-                            pokemonDataList.add(item);
-                        }, throwable -> Log.d("RETROFIT", throwable.getMessage()));
-
-         }
-
-         pageViewModel2.setPokemons(pokemonDataList);
-
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       // compositeDisposable.clear();
     }
 }

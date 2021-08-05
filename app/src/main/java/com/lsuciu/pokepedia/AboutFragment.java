@@ -18,6 +18,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class AboutFragment extends Fragment {
 
@@ -31,6 +44,9 @@ public class AboutFragment extends Fragment {
     TextView description;
     PageViewModel pageViewModel;
     StringBuilder sb;
+    CompositeDisposable compositeDisposable;
+    List<PokemonData> pokemonDataList;
+    PokemonDatabase pokemonDatabase;
 
     public AboutFragment() { }
 
@@ -52,6 +68,8 @@ public class AboutFragment extends Fragment {
         capture = view.findViewById(R.id.capture_pokemon);
         description = view.findViewById(R.id.pokemon_description);
 
+        pokemonDataList = new ArrayList<>();
+        pokemonDatabase = PokemonDatabase.getInstance(this.getContext());
         return view;
     }
 
@@ -64,16 +82,25 @@ public class AboutFragment extends Fragment {
         pageViewModel.getPokemon().observe(requireActivity(), new Observer<PokemonDetails>() {
             @Override
             public void onChanged(PokemonDetails pokemonDetails) {
+                compositeDisposable = new CompositeDisposable();
                 updateData(pokemonDetails);
             }
         });
+
+        pageViewModel.getSavePokemon().observe(requireActivity(), new Observer<Pokemon>() {
+            @Override
+            public void onChanged(Pokemon pokemon) {
+                savePokemon(pokemon);
+            }
+        });
+
     }
 
 
     public void updateData(PokemonDetails pokemonDetails) {
         this.pokemon = pokemonDetails;
-
-        Log.d("test2", String.valueOf(pokemon.getId()));
+        Pokemon pokemonEntity = pageViewModel.getSavePokemon().getValue();
+        if(pokemonEntity != null) pokemonEntity.setEvolutions(new ArrayList<>());
 
         description.setText(pokemon.getDescription());
 
@@ -98,7 +125,60 @@ public class AboutFragment extends Fragment {
         happiness.setText(Integer.toString(pokemon.getHappiness()));
         capture.setText(Integer.toString(pokemon.getCapture()));
 
+
+        if(pageViewModel.getLabel() == 1){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://pokeapi.co/api/v2/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+
+            ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
+
+            for (String name : pokemon.getEvolutions()) {
+
+                compositeDisposable.add(apiServiceRX.getPokemon(name)
+                        .map(item -> {
+                            PokemonData pokemonData = new PokemonData();
+                            pokemonData.setId(item.getId());
+                            pokemonData.setName(item.getName());
+                            pokemonData.setImage(item.getSprite().getSpriteDetails().getArtwork().getArtworkUrl());
+                            List<String> stringTypes = item.getStringTypes();
+                            List<Type> types = new ArrayList<>();
+                            for (String s : stringTypes) {
+                                types.add(Type.valueOf(s.toUpperCase()));
+                            }
+                            pokemonData.setTypes(types);
+
+                            return pokemonData;
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(item -> {
+                            if(pokemonEntity != null){
+                                pokemonEntity.getEvolutions().add(item.getId());
+                            }
+                            pokemonDataList.add(item);
+                        }, throwable -> Log.d("RETROFIT", throwable.getMessage())));
+            }
+            pageViewModel.setPokemons(pokemonDataList);
+
+        }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+    }
 
+    public void savePokemon(Pokemon pokemon){
+        pokemon.setEvolutions(new ArrayList<>());
+
+        for (PokemonData pd: pokemonDataList) {
+            pokemon.getEvolutions().add(pd.getId());
+        }
+
+        pokemonDatabase.pokemonDao().insertPokemon(pokemon);
+    }
 }

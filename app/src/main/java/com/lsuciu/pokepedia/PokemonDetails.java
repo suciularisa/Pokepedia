@@ -1,9 +1,7 @@
 package com.lsuciu.pokepedia;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PokemonDetails {
 
@@ -16,15 +14,15 @@ public class PokemonDetails {
     private int weight;
     private int happiness;
     private int capture;
-    Map<String, Integer> stats;
+    List<Integer> stats;
     List<String> evolutions;
-    List<String> evolutionsUrl;
+    List<Integer> evolutionsId;
 
 
     public PokemonDetails() {
         evolutions = new ArrayList<String>();
-        evolutionsUrl = new ArrayList<String>();
-        stats = new HashMap<String, Integer>();
+        evolutionsId = new ArrayList<Integer>();
+        stats = new ArrayList<Integer>();
     }
 
     public int getId() {
@@ -99,12 +97,12 @@ public class PokemonDetails {
         this.evolutions = evolutions;
     }
 
-    public List<String> getEvolutionsUrl() {
-        return evolutionsUrl;
+    public List<Integer> getEvolutionsId() {
+        return evolutionsId;
     }
 
-    public void setEvolutionsUrl(List<String> evolutionsUrl) {
-        this.evolutionsUrl = evolutionsUrl;
+    public void setEvolutionsId(List<Integer> evolutionsId) {
+        this.evolutionsId = evolutionsId;
     }
 
     public String getDescription() {
@@ -115,11 +113,11 @@ public class PokemonDetails {
         this.description = description;
     }
 
-    public Map<String, Integer> getStats() {
+    public List<Integer> getStats() {
         return stats;
     }
 
-    public void setStats(Map<String, Integer> stats) {
+    public void setStats(List<Integer> stats) {
         this.stats = stats;
     }
 }

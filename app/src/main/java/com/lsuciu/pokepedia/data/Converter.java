@@ -40,25 +40,26 @@ public class Converter {
     }
 
 
-/*
     @TypeConverter
-    public static List<String> fromTypeToString(List<Type> types){
+    public static List<Integer> fromStringToStats(String statsString){
+        List<Integer> stats = new ArrayList<>();
+        List<String> tokens = Arrays.asList(statsString.split(","));
 
-        ArrayList<String> strings = new ArrayList<>();
-        for (Type t: types
-             ) {
-            strings.add(new Gson().toJson(t));
+        for (String stat: tokens) {
+            stats.add(Integer.valueOf(stat));
         }
-        return strings;
+        return stats;
     }
 
     @TypeConverter
-    public static List<Type> fromStringToType(List<String> names){
-        ArrayList<Type> types = new ArrayList<>();
-        for (String n: names
-        ) {
-            types.add(new Gson().fromJson(n,Type.class));
+    public static String fromStatsToString(List<Integer> stats){
+        StringBuilder sb = new StringBuilder();
+
+        for (Integer stat: stats) {
+            sb.append(stat + ",");
         }
-        return types;
-    }*/
+
+        return sb.toString();
+    }
+
 }

@@ -14,7 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="Description"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:fontFamily="@font/custom_font"/>
 
 
     <LinearLayout
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:text="ID"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?attr/typeColor" />
+            android:textColor="?attr/typeColor"
+            android:fontFamily="@font/custom_font"/>
 
         <TextView
             android:id="@+id/id_pokemon"
@@ -49,7 +51,7 @@
             android:text="ID"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <View
@@ -65,7 +67,7 @@
             android:text="Height"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?attr/typeColor"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <TextView
@@ -75,7 +77,7 @@
             android:text="Height"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <View
@@ -91,7 +93,7 @@
             android:text="Weight"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?attr/typeColor"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <TextView
@@ -101,7 +103,7 @@
             android:text="Weight"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <View
@@ -117,7 +119,7 @@
             android:text="Base Happiness"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?attr/typeColor"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <TextView
@@ -127,7 +129,7 @@
             android:text="Base Happiness"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <View
@@ -143,7 +145,7 @@
             android:text="Capture Rate"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?attr/typeColor"
-
+            android:fontFamily="@font/custom_font"
             />
 
         <TextView
@@ -153,7 +155,7 @@
             android:text="Capture"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-
+            android:fontFamily="@font/custom_font"
             />
 
     </LinearLayout>

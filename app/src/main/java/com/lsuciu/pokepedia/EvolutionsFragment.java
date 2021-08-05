@@ -16,19 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lsuciu.pokepedia.data.Pokemon;
+import com.lsuciu.pokepedia.data.PokemonDatabase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class EvolutionsFragment extends Fragment {
@@ -37,10 +29,10 @@ public class EvolutionsFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    AdapterEvolutions adapter;
-    PageViewModel2 pageViewModel2;
+    AdapterPoketeam adapter;
+    PageViewModel pageViewModel;
     List<PokemonData> evolutions = new ArrayList<>();
-    CompositeDisposable compositeDisposable;
+    Integer label, pokemonId;
 
 
 
@@ -49,7 +41,7 @@ public class EvolutionsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel2 = new ViewModelProvider(requireActivity()).get(PageViewModel2.class);
+        pageViewModel = new ViewModelProvider(requireActivity()).get(PageViewModel.class);
     }
 
     @Override
@@ -64,14 +56,16 @@ public class EvolutionsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        pageViewModel2.getPokemons().observe(requireActivity(), new Observer<List<PokemonData>>() {
+        pageViewModel.getPokemons().observe(requireActivity(), new Observer<List<PokemonData>>() {
             @Override
             public void onChanged(List<PokemonData> pokemonDataList) {
                 updateData(pokemonDataList);
             }
         });
 
-        adapter = new AdapterEvolutions(this.getContext(), evolutions);
+
+        adapter = new AdapterPoketeam(this.getContext(), evolutions, label, pokemonId);
+
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -87,6 +81,9 @@ public class EvolutionsFragment extends Fragment {
 
         evolutions = pokemonData;
         evolutions.sort(Comparator.comparing(PokemonData::getId));
+        label = pageViewModel.getLabel();
+        pokemonId = pageViewModel.getPokemonId();
     }
+
 
 }
