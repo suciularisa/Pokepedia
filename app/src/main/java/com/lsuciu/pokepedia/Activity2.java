@@ -55,7 +55,6 @@ public class Activity2 extends AppCompatActivity  {
     PokemonData pokemon, pokemon2;
     PokemonDatabase pokemonDB;
     List<PokemonData> pokemonDataList;
-    SavedPokemonDatabase savedPokemonDatabase;
     Pokemon savePokemon;
     Retrofit retrofit;
     ApiServiceRX apiServiceRX;
@@ -72,7 +71,6 @@ public class Activity2 extends AppCompatActivity  {
 
         pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
         pokemonDataList = new ArrayList<>();
-        savedPokemonDatabase = SavedPokemonDatabase.getInstance(this);
         pokemonDB = PokemonDatabase.getInstance(this);
 
         // Get the selected pokemon from the first activity

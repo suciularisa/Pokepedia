@@ -41,6 +41,7 @@ public class PokedexFragment extends Fragment{
     SearchView searchView;
     RecyclerView recyclerView;
     List<PokemonData> newPokemonDataList;
+    private int MAX_NR_POKEMONS = 100;
 
     public PokedexFragment() {
         // Required empty public constructor
@@ -104,7 +105,7 @@ public class PokedexFragment extends Fragment{
 
         ApiServiceRX apiServiceRX = retrofit.create(ApiServiceRX.class);
         compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(Observable.range(1,20)
+        compositeDisposable.add(Observable.range(1,MAX_NR_POKEMONS)
                 .flatMap(index -> apiServiceRX.getPokemon(index))
                 .map(pokemonJson -> {
                     PokemonData pokemonData = new PokemonData();

@@ -7,7 +7,12 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-
+<Button
+    android:id="@+id/mapsButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Map"
+    />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
