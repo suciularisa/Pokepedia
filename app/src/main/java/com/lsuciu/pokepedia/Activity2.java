@@ -29,8 +29,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.lsuciu.pokepedia.data.Pokemon;
 import com.lsuciu.pokepedia.data.PokemonDatabase;
-import com.lsuciu.pokepedia.data.SavedPokemon;
-import com.lsuciu.pokepedia.data.SavedPokemonDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,10 +161,8 @@ public class Activity2 extends AppCompatActivity  {
 
                     pageViewModel.setSavePokemon(savePokemon);
 
-                    //savedPokemonDatabase.SavedPokemonDao().savePokemon(new SavedPokemon(pokemonDetails.getId()));
                     heart_button.setIcon(R.drawable.heart_on);
                 }else{
-                    //savedPokemonDatabase.SavedPokemonDao().deleteFromId(pokemonDetails.getId());
                     pokemonDB.pokemonDao().deleteFromId(pokemonDetails.getId());
                     heart_button.setIcon(R.drawable.heart_off);
                 }

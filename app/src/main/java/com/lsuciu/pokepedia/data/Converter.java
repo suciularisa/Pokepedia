@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lsuciu.pokepedia.Type;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +63,48 @@ public class Converter {
         }
 
         return sb.toString();
+    }
+
+
+
+    @TypeConverter
+    public static List<Double> fromStringToLocation(String locationString){
+        List<Double> location = new ArrayList<>();
+        List<String> tokens = Arrays.asList(locationString.split(","));
+
+        for (String stat: tokens) {
+            location.add(Double.valueOf(stat));
+        }
+        return location;
+    }
+
+    @TypeConverter
+    public static String fromLocationToString(List<Double> location){
+        StringBuilder sb = new StringBuilder();
+
+        for (Double coordinate: location) {
+            sb.append(coordinate + ",");
+        }
+
+        return sb.toString();
+    }
+
+    @TypeConverter
+    public static LocalDateTime toDate(String dateString) {
+        if (dateString == null) {
+            return null;
+        } else {
+            return LocalDateTime.parse(dateString);
+        }
+    }
+
+    @TypeConverter
+    public static String toDateString(LocalDateTime date) {
+        if (date == null) {
+            return null;
+        } else {
+            return date.toString();
+        }
     }
 
 }

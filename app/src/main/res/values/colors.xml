@@ -51,6 +51,8 @@
     <color name="fairyLighter">#80fbc2ff</color>
     <color name="rockLighter">#80dacd97</color>
 
+    <color name="gray">#5d6475</color>
+    <color name="transparent">#00ffffff</color>
 
 
 </resources>

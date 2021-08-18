@@ -9,15 +9,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
 
-public class ViewPagerAdapterMainActivity extends FragmentStateAdapter {
+public class ViewPagerAdapterHomeFragment extends FragmentStateAdapter {
 
     private int NR_FRAGMENTS = 2;
     private ArrayList<Fragment> fragments;
 
-    public ViewPagerAdapterMainActivity(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragments) {
+    public ViewPagerAdapterHomeFragment(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragments) {
         super(fragmentActivity);
         this.fragments = fragments;
     }
+
 
     public void setFragments(ArrayList<Fragment> fragments) {
         this.fragments = fragments;
