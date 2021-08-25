@@ -53,7 +53,7 @@ public class CaptureDialog extends DialogFragment {
     public void setPokemonDetails(PokemonJson pokemonJson, LatLng coordinates){
         capturedPokemon = new CapturedPokemon();
         capturedPokemon.setId(pokemonJson.getId());
-        capturedPokemon.setName(pokemonJson.getName());
+        capturedPokemon.setName(pokemonJson.getName().substring(0,1).toUpperCase() + pokemonJson.getName().substring(1));
         capturedPokemon.setImage(pokemonJson.getSprite().getSpriteDetails().getArtwork().getArtworkUrl());
         List<Type> types = new ArrayList<>();
         for (PokemonType pt: pokemonJson.getTypes()) {

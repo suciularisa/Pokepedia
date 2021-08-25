@@ -80,17 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
 
-
-        CapturedPokemon capturedPokemon = new CapturedPokemon();
-        capturedPokemon.setName("Bulbasaur");
-        capturedPokemon.setId(1);
-        capturedPokemon.setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
-        capturedPokemon.setTypes(new ArrayList<>(Arrays.asList(Type.GRASS, Type.POISON)));
-        capturedPokemon.setLocation(new ArrayList<>(Arrays.asList(46.789, 46.889)));
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        capturedPokemon.setDate(LocalDateTime.now());
-
-
         selectedFragment = homeFragment;
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

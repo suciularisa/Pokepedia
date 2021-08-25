@@ -101,7 +101,12 @@ public class AdapterCapturedPokemons extends RecyclerView.Adapter<AdapterCapture
             Glide.with(mContext)
                     .load(pokemon.getImage())
                     .into(image_pokemon);
+
+
             pokemon_name.setText(pokemon.getName());
+
+
+
             pokemon_type_1.setText(pokemon.getTypes().get(0).getName());
             if(pokemon.getTypes().size() == 2){
                 pokemon_type_2.setText(pokemon.getTypes().get(1).getName());

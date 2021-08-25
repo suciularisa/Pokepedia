@@ -32,22 +32,18 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         coordinatesList.put(index, coordinates);
     }
 
-    private Intent intent;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving an Intent broadcast.
 
-        Toast.makeText(context, "Geofence triggered...", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Geofence triggered...", Toast.LENGTH_SHORT).show();
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
 
         if(geofencingEvent.hasError()){
             Log.e("test3", String.valueOf(geofencingEvent.getErrorCode()));
             Toast.makeText(context, "Geofencing event has error", Toast.LENGTH_SHORT).show();
         }else{
-
-            int transition = geofencingEvent.getGeofenceTransition();
-            List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
             List <Geofence> triggerList = geofencingEvent.getTriggeringGeofences();
 
@@ -56,19 +52,12 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             for (int i = 0; i < triggerIds.length; i++) {
                 triggerIds[i] = triggerList.get(i).getRequestId();
 
-               /* PokemonInstance.setPokemonJson(pokemonJsonList.get(Integer.valueOf(triggerIds[i])));
-                PokemonInstance.setCoordinates(coordinatesList.get(Integer.valueOf(triggerIds[i])));*/
                 PokemonJson pokemon = pokemonJsonList.get(Integer.valueOf(triggerIds[i]));
                 LatLng coordinates = coordinatesList.get(Integer.valueOf(triggerIds[i]));
                 PokemonInstance pokemonInstance = new PokemonInstance();
                 pokemonInstance.setCoordinates(coordinates);
                 pokemonInstance.setPokemonJson(pokemon);
                 EventBus.getDefault().post(pokemonInstance);
-                //Toast.makeText(context, triggerIds[i], Toast.LENGTH_SHORT).show();
-                /*
-                intent = new Intent(context, CaptureActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);*/
             }
         }
     }

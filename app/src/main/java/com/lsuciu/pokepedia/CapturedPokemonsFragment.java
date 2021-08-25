@@ -11,25 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.type.Date;
 import com.lsuciu.pokepedia.data.CapturedPokemon;
 import com.lsuciu.pokepedia.data.CapturedPokemonDatabase;
-import com.lsuciu.pokepedia.data.Pokemon;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class CapturedPokemonsFragment extends Fragment{
 
     RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
     AdapterCapturedPokemons adapter;
-    List<PokemonData> pokemonDataList;
 
     @Nullable
     @Override
@@ -38,15 +30,9 @@ public class CapturedPokemonsFragment extends Fragment{
 
         CapturedPokemonDatabase capturedPokemonDB = CapturedPokemonDatabase.getInstance(this.getContext());
 
-        //TESTING////////////////////////////
-       // capturedPokemonDB.capturedPokemonDao().deleteCapturedPokemons();
-
-
-
-        //capturedPokemonDB.capturedPokemonDao().insertPokemon(capturedPokemon);
-        /////////////////////////////////
 
         List<CapturedPokemon> pokemons = (ArrayList<CapturedPokemon>) capturedPokemonDB.capturedPokemonDao().getCapturedPokemons();
+        Collections.reverse(pokemons);
 
         recyclerView = view.findViewById(R.id.recyclerViewCapturedPokemons);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));

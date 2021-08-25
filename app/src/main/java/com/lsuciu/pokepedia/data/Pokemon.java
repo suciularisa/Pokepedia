@@ -43,11 +43,11 @@ public class Pokemon implements Serializable {
 
     public  Pokemon(){}
 
-    public Pokemon(String name, int id, List<Type> types) {
+/*    public Pokemon(String name, int id, List<Type> types) {
         this.name = name;
         this.id = id;
         this.types = types;
-    }
+    }*/
 
 
     public String getName() {

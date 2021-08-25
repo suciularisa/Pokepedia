@@ -42,13 +42,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.lsuciu.pokepedia.data.Pokemon;
+import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,8 +59,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -84,6 +84,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     List<Double> longitudes;
     List<Double> latitudes;
     boolean once = true;
+    boolean testMarkerActive = true;
 
     List<PokemonJson> pokemonJsonList;
 
@@ -95,7 +96,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     List<Geofence> geofenceList;
     private PokemonJson testPokemon;
-
+    List<Circle> circleList;
+    LatLng testCoordinates;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +106,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         markerOptionsList = new ArrayList<>();
         markersList = new ArrayList<>();
+        circleList = new ArrayList<>();
         if (once) {
             longitudes = generateRandomNumbers(MARKER_COUNT, -MAX_LONGITUDE, MAX_LONGITUDE);
             latitudes = generateRandomNumbers(MARKER_COUNT, -MAX_LATITUDE, MAX_LATITUDE);
@@ -114,6 +117,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         geofenceHelper = new GeofenceHelper(this.getContext());
 
         init();
+        while (pokemonJsonList == null) {
+        }
     }
 
     private void init(){
@@ -156,8 +161,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         generateCooridates(lastKnownLocation);
 
         //display markers
-        while (pokemonJsonList == null) {
-        }
 
         for (int i = 0; i < MARKER_COUNT; i++) {
 
@@ -172,10 +175,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             Marker newMarker;
                             newMarker = mMap.addMarker(currentMarker.icon(BitmapDescriptorFactory.fromBitmap(getBitmapDescriptorFromBitmap(resource)))
                                     .title(String.valueOf(aux)));
-                            mMap.addCircle(new CircleOptions().center(currentMarker.getPosition()).radius(GEOFENCE_RADIUS)
+                            Circle newCircle = mMap.addCircle(new CircleOptions().center(currentMarker.getPosition()).radius(GEOFENCE_RADIUS)
                                     .strokeColor(Color.argb(255, 255, 0, 0))
                                     .fillColor(Color.argb(64, 255, 0, 0)));
 
+                            markersList.add(newMarker);
+                            circleList.add(newCircle);
                            addGeofence(newMarker, pokemonJsonList.get(aux), aux, markerOptionsList.get(aux).getPosition());
                         }
 
@@ -185,18 +190,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     });
         }
 
-        //TestMarker
-        LatLng testCoordinates = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude() + 0.000013);
-        MarkerOptions testMarker = new MarkerOptions().title("5").position(testCoordinates);
-        Marker testMarkerr = mMap.addMarker(testMarker);
-        mMap.addCircle(new CircleOptions().center(testMarker.getPosition()).radius(GEOFENCE_RADIUS)
-                .strokeColor(Color.argb(255, 255, 0, 0))
-                .fillColor(Color.argb(64, 255, 0, 0)));
-        markerOptionsList.add(testMarker);
-        markersList.add(testMarkerr);
-        pokemonJsonList.add(testPokemon);
-        addGeofence(testMarkerr, testPokemon, 5, testCoordinates);
-
+        if(testMarkerActive){
+            showTestMarker();
+        }
 
 
 
@@ -213,6 +209,36 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+    private void showTestMarker(){
+        //TestMarker
+        testCoordinates = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude() + 0.000013);
+        pokemonJsonList.add(testPokemon);
+        MarkerOptions testMarker = new MarkerOptions().position(testCoordinates);
+        markerOptionsList.add(testMarker);
+
+        Glide.with(getContext()).asBitmap()
+                .load(pokemonJsonList.get(pokemonJsonList.size() - 1).getSprite().getSpriteDetails().getArtwork().getArtworkUrl())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Marker newMarker;
+                        newMarker = mMap.addMarker(testMarker.icon(BitmapDescriptorFactory.fromBitmap(getBitmapDescriptorFromBitmap(resource)))
+                                .title(String.valueOf(pokemonJsonList.size() - 1)));
+                        Circle newCircle = mMap.addCircle(new CircleOptions().center(testMarker.getPosition()).radius(GEOFENCE_RADIUS)
+                                .strokeColor(Color.argb(255, 255, 0, 0))
+                                .fillColor(Color.argb(64, 255, 0, 0)));
+
+                        circleList.add(newCircle);
+                        markersList.add(newMarker);
+                        addGeofence(newMarker, testPokemon, pokemonJsonList.size() - 1, testCoordinates);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
+    }
+
 
     @Override
     public void onStart() {
@@ -227,7 +253,39 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         CaptureDialog captureDialog = CaptureDialog.getInstance();
          captureDialog.setPokemonDetails(pokemonInstance.getPokemonJson(), pokemonInstance.getCoordinates());
         captureDialog.show(manager, "CaptureDialog");
+        int index = indexOfMarkerToDelete(pokemonInstance.getCoordinates());
+        Marker marker = markersList.get(index);
+        marker.remove();
+        markersList.remove(index);
+        Circle circle = circleList.get(index);
+        circle.remove();
+        circleList.remove(index);
 
+        if(pokemonInstance.getPokemonJson().equals(testPokemon) && pokemonInstance.getCoordinates().equals(testCoordinates)) testMarkerActive = false;
+                else MARKER_COUNT--;
+
+        //remove geofence
+        List<String> tag = new ArrayList<>();
+        tag.add(String.valueOf(pokemonInstance.getPokemonJson().getId()));
+        geofencingClient.removeGeofences(tag).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                /*if(task.isSuccessful())
+                Toast.makeText(getContext(),"Geofence removed", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(),"can't remove location: " + task.getException(), Toast.LENGTH_SHORT).show();*/
+            }
+        });
+    }
+
+    private int indexOfMarkerToDelete(LatLng coordinates){
+        int index = 0;
+        for (Marker marker: markersList) {
+            if(marker.getPosition().equals(coordinates)) return index;
+            //if(marker.getPosition().latitude == coordinates.latitude && marker.getPosition().longitude == coordinates.longitude) return index;
+            index++;
+        }
+        return index-1;
     }
 
     @Override
