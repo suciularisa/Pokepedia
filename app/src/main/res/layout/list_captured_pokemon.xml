@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginVertical="5dp">
                     <TextView
                         android:id="@+id/pokemon_type1"
                         android:layout_width="wrap_content"
@@ -67,32 +67,28 @@
                         android:layout_marginLeft="5dp"
                         android:fontFamily="@font/custom_font"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginVertical="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+
                     <TextView
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textColor="@color/white"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textAlignment="viewStart"
                         android:fontFamily="@font/custom_font"
                         android:text="Capture Location: "
+                        android:maxLines="1"
+                        android:autoSizeTextType="uniform"
                         />
 
                     <ImageButton
-                        android:layout_gravity="right"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/location_capture"
                         android:src="@drawable/map_icon_small"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="2dp"
                         android:background="@color/transparent"
                         />
-                </LinearLayout>
+
                 <TextView
                     android:layout_marginTop="5dp"
                     android:id="@+id/date_capture"
@@ -100,8 +96,10 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/custom_font"/>
+                    android:textAlignment="textStart"
+                    android:fontFamily="@font/custom_font"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"/>
 
             </LinearLayout>
 

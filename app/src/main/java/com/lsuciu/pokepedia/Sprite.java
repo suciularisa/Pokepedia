@@ -14,4 +14,9 @@ public class Sprite {
     public void setSpriteDetails(SpriteDetails spriteDetails) {
         this.spriteDetails = spriteDetails;
     }
+
+    public void setImage(String url){
+        this.spriteDetails = new SpriteDetails();
+        spriteDetails.setImage(url);
+    }
 }

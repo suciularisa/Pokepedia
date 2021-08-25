@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "169390611007",
+    "project_id": "pokepedia-40e54",
+    "storage_bucket": "pokepedia-40e54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169390611007:android:81e9980e4e3e8fec83b68a",
+        "android_client_info": {
+          "package_name": "com.lsuciu.pokepedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169390611007-pqt08hefm13c7f3u2usqfpp9upbu47ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKdfnsBFIjeLS-vguV4Ltv9TCyXsrQ3Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169390611007-pqt08hefm13c7f3u2usqfpp9upbu47ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

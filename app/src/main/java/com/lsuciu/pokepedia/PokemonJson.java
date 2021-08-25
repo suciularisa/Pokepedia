@@ -131,4 +131,11 @@ public class PokemonJson {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    public void setImage(String url){
+        this.sprite = new Sprite();
+        sprite.setImage(url);
+    }
+
 }

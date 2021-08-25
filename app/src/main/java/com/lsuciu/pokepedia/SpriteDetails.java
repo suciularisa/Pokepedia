@@ -14,4 +14,10 @@ public class SpriteDetails {
     public void setArtwork(Artwork artwork) {
         this.artwork = artwork;
     }
+
+    public void setImage(String url){
+        this.artwork = new Artwork();
+        this.artwork.setArtworkUrl(url);
+    }
+
 }

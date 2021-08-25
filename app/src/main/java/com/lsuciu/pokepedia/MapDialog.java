@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -30,7 +32,9 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.lsuciu.pokepedia.data.CapturedPokemon;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MapDialog extends DialogFragment implements OnMapReadyCallback {
@@ -39,6 +43,13 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private String imageUrl;
     private LatLng location;
+    private String pokemonName;
+    private String dateCapture;
+    StringBuilder sb;
+    private CapturedPokemon pokemon;
+
+    private int ZOOM = 18;
+
 
     public MapDialog() {
         // Required empty public constructor
@@ -53,6 +64,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        this.getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         view = inflater.inflate(R.layout.popup, container, false);
 
         SupportMapFragment mapFragment = (SupportMapFragment)
@@ -66,6 +78,17 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
                 dismiss();
             }
         });
+
+        TextView titleView = view.findViewById(R.id.popup_title);
+        sb = new StringBuilder();
+        sb.append(pokemonName.substring(0,1).toUpperCase() + pokemonName.substring(1) + " capture location");
+        titleView.setText(sb.toString());
+
+        TextView coordinatesView = view.findViewById(R.id.popup_coordinates);
+        coordinatesView.setText(location.latitude + ", " + location.longitude);
+
+        TextView dateView = view.findViewById(R.id.popup_date);
+        dateView.setText(dateCapture);
         return view;
     }
 
@@ -79,7 +102,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
 
     public void centerMapOnLocation(){
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, ZOOM));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location).title("Pokemon");
 
@@ -114,12 +137,12 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
     }
 
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPokemon(CapturedPokemon pokemon){
+        this.pokemon = pokemon;
+        location = new LatLng(pokemon.getLocation().get(0), pokemon.getLocation().get(1));
+        dateCapture = pokemon.getDateFormated();
+        imageUrl = pokemon.getImage();
+        pokemonName = pokemon.getName();
     }
 
-
-    public void setLocation(LatLng location) {
-        this.location = location;
-    }
 }

@@ -1,5 +1,7 @@
 package com.lsuciu.pokepedia.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -19,7 +21,10 @@ import java.util.List;
 public class CapturedPokemon {
 
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "DatabaseId")
+    private int database_id;
     @NonNull
     @ColumnInfo(name = "Id")
     private int id;
@@ -85,7 +90,23 @@ public class CapturedPokemon {
     public String getDateFormated(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(date.getYear() + "/" + date.getMonthValue() + "/" + date.getDayOfMonth() + " " + date.getHour() + ":" + date.getMinute());
+        sb.append(date.getYear() + "/" + date.getMonthValue() + "/" + date.getDayOfMonth() + " ");
+        if(date.getHour() < 10){
+            sb.append("0" + date.getHour() + ":");
+        }else sb.append(date.getHour() + ":");
+
+        if(date.getMinute() < 10){
+            sb.append("0" + date.getMinute());
+        }else sb.append(date.getMinute());
+
         return sb.toString();
+    }
+
+    public int getDatabase_id() {
+        return database_id;
+    }
+
+    public void setDatabase_id(int database_id) {
+        this.database_id = database_id;
     }
 }

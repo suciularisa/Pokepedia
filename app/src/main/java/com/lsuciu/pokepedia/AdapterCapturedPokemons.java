@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,10 +130,8 @@ public class AdapterCapturedPokemons extends RecyclerView.Adapter<AdapterCapture
                     FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();
                     MapDialog mapDialog = MapDialog.getInstance();
                     mapDialog.setCancelable(false);
-                    mapDialog.setImageUrl(pokemon.getImage());
-                    mapDialog.setLocation(new LatLng(pokemon.getLocation().get(0), pokemon.getLocation().get(1)));
+                    mapDialog.setPokemon(pokemon);
                     mapDialog.show(manager, null);
-
                 }
             });
         }

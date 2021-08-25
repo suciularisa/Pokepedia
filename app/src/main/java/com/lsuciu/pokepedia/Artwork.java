@@ -14,4 +14,5 @@ public class Artwork {
     public void setArtworkUrl(String artworkUrl) {
         this.artworkUrl = artworkUrl;
     }
+
 }

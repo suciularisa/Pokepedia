@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -24,7 +26,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.lsuciu.pokepedia.data.CapturedPokemon;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     int MIN_POKEMON_ID = 1;
     int MAX_POKEMON_ID = 100;
     CompositeDisposable compositeDisposable;
-
+    Fragment selectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
 
+
+        CapturedPokemon capturedPokemon = new CapturedPokemon();
+        capturedPokemon.setName("Bulbasaur");
+        capturedPokemon.setId(1);
+        capturedPokemon.setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
+        capturedPokemon.setTypes(new ArrayList<>(Arrays.asList(Type.GRASS, Type.POISON)));
+        capturedPokemon.setLocation(new ArrayList<>(Arrays.asList(46.789, 46.889)));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        capturedPokemon.setDate(LocalDateTime.now());
+
+
+        selectedFragment = homeFragment;
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment;
 
                 switch (item.getItemId()){
                     case R.id.nav_home: selectedFragment = homeFragment;
@@ -88,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_captured: selectedFragment =capturedPokemonsFragment;
                                         break;
                     default:
-                        throw new IllegalStateException("Unexpected value: " + item.getItemId());
+                        FragmentManager manager = getSupportFragmentManager();
+                        CaptureDialog captureDialog = CaptureDialog.getInstance();
+                        captureDialog.show(manager, "CaptureDialog");
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
@@ -167,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        compositeDisposable.clear();
         Log.v(TAG,"onDestroy");
     }
 

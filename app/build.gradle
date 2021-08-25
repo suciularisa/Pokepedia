@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
 
 }
 
@@ -84,6 +85,14 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //for glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+
+
+    // for gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.18'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
 
 }

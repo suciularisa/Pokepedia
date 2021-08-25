@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dialog_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:elevation="5dp"
+        app:civ_border_color="@color/base_blue"
+        app:civ_circle_background_color="@color/white"
+        app:civ_border_width="4dp"/>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_placeholder"
+        android:backgroundTint="@color/base_blue"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:layout_marginTop="-30dp">
+
+        <TextView
+            android:id="@+id/dialog_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/custom_font"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="30dp"
+            />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/pokeball_animation"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/pokeball_small_animation"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="5dp">
+            <Button
+                android:id="@+id/dialog_catch"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Catch"
+                android:fontFamily="@font/custom_font"
+                android:background="@drawable/rounded_placeholder"
+                android:layout_marginHorizontal="5dp"
+                />
+            <Button
+                android:id="@+id/dialog_close"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                android:fontFamily="@font/custom_font"
+                android:background="@drawable/rounded_placeholder"
+                android:layout_marginHorizontal="5dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

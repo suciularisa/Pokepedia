@@ -49,6 +49,7 @@ public class Converter {
         List<String> tokens = Arrays.asList(statsString.split(","));
 
         for (String stat: tokens) {
+            if(stat.equals("")) continue;
             stats.add(Integer.valueOf(stat));
         }
         return stats;
