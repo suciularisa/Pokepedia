@@ -22,7 +22,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.airbnb.lottie.model.content.CircleShape;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.lsuciu.pokepedia.data.CapturedPokemon;
 import com.lsuciu.pokepedia.data.CapturedPokemonDatabase;
@@ -35,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -82,10 +86,11 @@ public class CaptureDialog extends DialogFragment {
         ImageView pokemonImage = view.findViewById(R.id.dialog_image);
         Glide.with(getContext())
                 .load(capturedPokemon.getImage())
+                //.apply(new RequestOptions().override(100, 100))
                 .into(pokemonImage);
 
         TextView title = view.findViewById(R.id.dialog_text);
-        title.setText("Catch " + capturedPokemon.getName() + " ?");
+        title.setText("Would you like to catch " + capturedPokemon.getName() + " ?");
 
 
         ImageView gif = view.findViewById(R.id.pokeball_animation);
@@ -101,7 +106,7 @@ public class CaptureDialog extends DialogFragment {
 
         GifDrawable gifDrawable = null;
         try {
-            gifDrawable = new GifDrawable( getResources(), R.drawable.pokeball_animation);
+            gifDrawable = new GifDrawable( getResources(), R.drawable.pokemon_catched_animation);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,14 +128,13 @@ public class CaptureDialog extends DialogFragment {
                 fadeout.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
-                        gif.setBackgroundResource(R.drawable.pokeball_animation);
+                        gif.setBackgroundResource(R.drawable.pokemon_catched_animation);
                     }
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         FragmentManager manager = getChildFragmentManager();
                         ResultDialog resultDialog = ResultDialog.getInstance();
-                        resultDialog.setCancelable(false);
                         resultDialog.setCapturedPokemon(capturedPokemon);
                         resultDialog.show(manager, null);
                         getDialog().hide();

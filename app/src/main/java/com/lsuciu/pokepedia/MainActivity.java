@@ -20,6 +20,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -90,12 +91,8 @@ public class MainActivity extends AppCompatActivity {
                                         break;
                     case R.id.nav_map: selectedFragment = mapsFragment;
                                         break;
-                    case R.id.nav_captured: selectedFragment =capturedPokemonsFragment;
+                    default: selectedFragment =capturedPokemonsFragment;
                                         break;
-                    default:
-                        FragmentManager manager = getSupportFragmentManager();
-                        CaptureDialog captureDialog = CaptureDialog.getInstance();
-                        captureDialog.show(manager, "CaptureDialog");
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();

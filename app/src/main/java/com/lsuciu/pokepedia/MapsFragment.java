@@ -123,9 +123,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private void init(){
         testPokemon = new PokemonJson();
-        testPokemon.setName("Venusaur");
-        testPokemon.setId(3);
-        testPokemon.setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png");
+        testPokemon.setName("Bulbasaur");
+        testPokemon.setId(1);
+        testPokemon.setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
         PokemonTypeDetails type1 = new PokemonTypeDetails();
         type1.setType_name(Type.GRASS.getName());
         PokemonTypeDetails type2 = new PokemonTypeDetails();

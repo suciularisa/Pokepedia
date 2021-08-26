@@ -50,20 +50,11 @@ public class ResultDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.capture_result_dialog, container, false);
 
-        //close window
-        TextView closeButton = view.findViewById(R.id.dialog_close);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
-
         TextView dialogText = view.findViewById(R.id.dialog_text);
         GifImageView gif = view.findViewById(R.id.dialog_gif);
 
 
-        dialogText.setText("Captured " + capturedPokemon.getName() + " successfully");
+        dialogText.setText("You have successfully captured " + capturedPokemon.getName());
         savePokemon();
         gif.setBackgroundResource(R.drawable.catch_animation);
 
